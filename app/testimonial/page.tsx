@@ -6,8 +6,8 @@ import { TestimonialSection } from '@/src/sections/testimonial/grid';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Techlab | Testimonial',
-  description: 'Techlab - IT Solutions and Services React Nextjs Template',
+  title: 'Euclitics | Testimonial',
+  description: 'Euclitics - IT Solutions and Services React Nextjs Template',
 };
 
 export default function Page() {
@@ -27,7 +27,7 @@ export default function Page() {
         ]}
       />
       <TestimonialSection />
-      <CtaSection className="section-padding-primary !pt-0" />
+      <CtaSection className="section-padding-primary !pt-0" /> */}
       <Footer />
     </>
   );

@@ -6,8 +6,8 @@ import { MapSection } from '@/src/sections/map-section';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Techlab | Contact',
-  description: 'Techlab - IT Solutions and Services React Nextjs Template',
+  title: 'Euclitics | Contact',
+  description: 'Euclitics - IT Solutions and Services React Nextjs Template',
 };
 
 export default function Page() {

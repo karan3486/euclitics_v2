@@ -6,8 +6,8 @@ import { PricingSection } from '@/src/sections/pricing/version-2';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Techlab | Pricing',
-  description: 'Techlab - IT Solutions and Services React Nextjs Template',
+  title: 'Euclitics | Pricing',
+  description: 'Euclitics - IT Solutions and Services React Nextjs Template',
 };
 
 export default function Page() {
@@ -27,7 +27,7 @@ export default function Page() {
         ]}
       />
       <PricingSection />
-      <CtaSection className="section-padding-primary" />
+      {/* <CtaSection className="section-padding-primary" /> */}
       <Footer />
     </>
   );

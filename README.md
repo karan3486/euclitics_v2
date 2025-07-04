@@ -1,4 +1,4 @@
-# Techlab | IT Solutions And Services Nextjs Template
+# Euclitics | IT Solutions And Services Nextjs Template
 
 #### Commit Prefixes
 

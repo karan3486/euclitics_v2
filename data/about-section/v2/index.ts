@@ -2,18 +2,18 @@ import { AboutSectionProps } from '@/src/sections/about/v2';
 
 export const aboutSectionData: AboutSectionProps = {
   sectionHeading: {
-    subtitle: 'About Us',
-    title: 'Sculpting Digital Landscapes',
+    subtitle: 'More About Us',
+    title: 'Crafting Solutions That Think Ahead',
     description:
-      'Nulla vitae ex nunc. Morbi quis purus convallis, fermentum metus volutpat, sodales purus. Nunc quis an mauris et eros vulputate mattis Nulla vitae ex nunc. Morbi quis purus convallis, fermentum metus the volutpatquis purus convallis',
+      "We don’t just build software — we architect intelligent ecosystems that adapt, scale, and evolve. Whether you're a fast-scaling startup or an enterprise embracing AI, we offer tailored services that fit your growth stage and technical landscape.",
   },
   aboutUsPoints: [
-    'Mistakes To Avoid',
-    'Your Startup business',
-    'Knew About Fonts',
-    'Mistakes To Avoid',
-    'Your Startup business',
-    'Knew About Fonts',
+    'AI Strategy & Consulting',
+    'Data Analytics & Visualization',
+    'Salesforce CRM Solutions',
+    'Web & API Development',
+    'Cloud Integration & DevOps Pipelines',
+    'Generative AI & Machine Learning',
   ],
   image: {
     src: '/assets/images/about/about-5.png',

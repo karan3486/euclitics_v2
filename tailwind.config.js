@@ -31,8 +31,8 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          light: '#34C2F6',
-          DEFAULT: '#0891B2',
+          light: '#0772C7',
+          DEFAULT: '#0779d3',
           gradient: {
             from: 'blue-600',
             to: 'cyan-600',
@@ -87,7 +87,7 @@ module.exports = {
         444: '999',
       },
       boxShadow: {
-        1: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+        1: '0px 0px 60px 0px rgba(25, 150, 207, 0.05)',
         2: '0px 0px 15px 10px rgba(255, 255, 255, 0.1)',
         3: '0px 4px 25px 0px rgba(0, 0, 0, 0.06)',
       },

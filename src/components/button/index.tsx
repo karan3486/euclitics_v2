@@ -19,8 +19,8 @@ const buttonVariants = cva(
     // Accessibility
     'ring-offset-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
 
-    // Normal color
-    'bg-primary',
+    // Gradient background
+    'bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500',
 
     // after - normal color
     'after:absolute after:h-full after:w-0 after:bottom-0 after:right-0 after:bg-black/[.15] after:-z-1 after:[transition:all_.3s_ease-in-out]',

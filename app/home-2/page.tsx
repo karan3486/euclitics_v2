@@ -16,8 +16,8 @@ import { WorkprocessSection } from '@/src/sections/work-process/v1';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Techlab | Home verion two',
-  description: 'Techlab - IT Solutions and Services React Nextjs Template',
+  title: 'Euclitics | Home verion two',
+  description: 'Euclitics - IT Solutions and Services React Nextjs Template',
 };
 
 export default function Page() {
@@ -26,7 +26,7 @@ export default function Page() {
       <MainHeader version="2" />
       <HeroSection />
       <ServiceSection className="!pt-0" {...serviceSectionData} />
-      <CtaSection />
+      {/* <CtaSection /> */}
       <PricingSection />
       <AboutSection />
       <WorkprocessSection />

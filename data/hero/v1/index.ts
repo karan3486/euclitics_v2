@@ -18,7 +18,7 @@ export const heroData: HeroProps = {
         src: '/assets/images/hero/hero-11.jpeg',
         alt: 'hero 1',
       },
-      title: 'Empowering Your Digital Future',
+      title: 'We Build. We Analyze. You Grow.',
       button: {
         label: 'Discover More',
         href: '/',
@@ -29,7 +29,7 @@ export const heroData: HeroProps = {
         src: '/assets/images/hero/hero-12.jpeg',
         alt: 'hero 1',
       },
-      title: 'Empowering Your Digital Future',
+      title: 'Empowering Your Vision Through Smart Tech.',
       button: {
         label: 'Discover More',
         href: '/',

@@ -1,5 +1,5 @@
 import { AboutSectionProps } from '@/src/sections/about/v1';
-
+import { FaBrain, FaChartLine, FaCloud, FaCode } from 'react-icons/fa6';
 function Icon1() {
   return (
     <svg
@@ -62,18 +62,26 @@ export const aboutSectionData: AboutSectionProps = {
     subtitle: 'About us',
     title: 'Empowering Your Digital Tomorrow',
     description:
-      'It is a long established fact that a reader will be distracted by the readablejk content of a page when looking at its layout. Lorem Ipsum is simply dum text of the printing and typesetting industry loren ipsum',
+      "At Euclitics, we believe the future belongs to those who build it — intelligently and intentionally. We specialize in AI-first digital transformation, helping businesses harness the power of Artificial Intelligence, Machine Learning, and Cloud technologies to streamline operations, drive growth, and deliver smarter digital experiences. From cloud migration and enterprise CRM to ML model development, data analytics, and custom software, we bring clarity and confidence to your digital journey.",
   },
   keyPoints: [
     {
-      icon: <Icon1 />,
-      title: 'Cloud Migrate Pro',
+      icon: <FaBrain size={24} />,
+      title: 'Smart AI Solutions',
     },
     {
-      icon: <Icon2 />,
-      title: 'AI Forge Labs',
+      icon: <FaChartLine size={24} />,
+      title: 'Data Analytics',
     },
+     {
+      icon: <FaCloud size={24} />,
+      title: 'Cloud & CRM Solutions',
+    },
+    {
+      icon: <FaCode size={24} />,
+      title: 'Web & API Development',
+    }
   ],
   description:
-    'It is a long established fact that a reader will be distracted by the readablejk content of a page when looking at its layout.',
+    '',
 };

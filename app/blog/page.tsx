@@ -5,8 +5,8 @@ import { HeroSection } from '@/src/sections/hero/v3';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Techlab | Blog',
-  description: 'Techlab - IT Solutions and Services React Nextjs Template',
+  title: 'Euclitics | Blog',
+  description: 'Euclitics - IT Solutions and Services React Nextjs Template',
 };
 
 export default function Page() {
