@@ -1,4 +1,4 @@
-import { ServiceSectionProps } from '@/src/sections/service/v1';
+import { ServiceSectionProps } from '@/src/sections/service/v2';
 
 function Icon1() {
   return (
@@ -90,47 +90,76 @@ function Icon6() {
 }
 
 export const serviceSectionData: ServiceSectionProps = {
+  sectionHeading: {
+    subtitle: 'Our Services',
+    title: 'What We Offer',
+    description: 'Explore our comprehensive range of IT solutions designed to help your business thrive in the digital landscape.',
+  },
   services: [
     {
+      image: {
+        src: '/assets/images/service/service-1.png',
+        alt: 'AI Strategy & Consulting',
+      },  
       icon: <Icon1 />,
-      title: 'Net Connect Plus',
+      title: 'AI Strategy & Consulting',
       description:
-        'It is a long established fact that a reader will be distracted by the readable content of a page layout long established',
+        'We help you define your AI strategy and implement it effectively, ensuring you stay ahead of the curve in the digital landscape.',
       slug: '/services/single',
     },
     {
+      image: {
+        src: '/assets/images/service/service-2.png',
+        alt: 'Data Analytics & Visualization',
+      },
       icon: <Icon2 />,
-      title: 'Data Guard Sentinel',
+      title: 'Data Analytics & Visualization',
       description:
-        'It is a long established fact that a reader will be distracted by the readable content of a page layout long established',
+        'We provide data analytics and visualization services to help you make informed decisions based on data-driven insights.',
       slug: '/services/single',
     },
     {
+      image: {
+        src: '/assets/images/service/service-3.png',
+        alt: 'Web & API Development',
+      },
       icon: <Icon3 />,
-      title: 'App Swift DevOps',
+      title: 'Web & API Development',
       description:
-        'It is a long established fact that a reader will be distracted by the readable content of a page layout long established',
+        'We provide web and API development services to help you create custom solutions for your business.',
       slug: '/services/single',
     },
     {
+      image: {
+        src: '/assets/images/service/service-4.png',
+        alt: 'Salesforce CRM Solutions',
+      },
       icon: <Icon4 />,
-      title: 'Data Guard Sentinels',
+      title: 'Salesforce CRM Solutions',
       description:
-        'It is a long established fact that a reader will be distracted by the readable content of a page layout long established',
+        'We provide Salesforce CRM solutions to help you manage your customer relationships and improve your business processes.',
       slug: '/services/single',
     },
     {
+      image: {
+        src: '/assets/images/service/service-5.png',
+        alt: 'Cloud Integration & DevOps Pipelines',
+      },
       icon: <Icon5 />,
-      title: 'App Swift DevOps',
+      title: 'Cloud Integration & DevOps Pipelines',
       description:
-        'It is a long established fact that a reader will be distracted by the readable content of a page layout long established',
+        'We provide cloud integration and DevOps pipeline services to help you automate your processes and improve your business processes.',
       slug: '/services/single',
     },
     {
+      image: {
+        src: '/assets/images/service/service-6.png',
+        alt: 'Generative AI & Machine Learning',
+      },
       icon: <Icon6 />,
-      title: 'Net Connect Plus',
+      title: 'Generative AI & Machine Learning',
       description:
-        'It is a long established fact that a reader will be distracted by the readable content of a page layout long established',
+        'We provide generative AI and machine learning services to help you create custom solutions for your business.',
       slug: '/services/single',
     },
   ],

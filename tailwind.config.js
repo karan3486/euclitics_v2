@@ -71,6 +71,10 @@ module.exports = {
         350: '350ms',
         400: '400ms',
       },
+      animationDelay: {
+        150: '150ms',
+        300: '300ms',
+      },
       borderRadius: {
         5: '.3125rem',
         10: '.625rem',
@@ -179,6 +183,10 @@ module.exports = {
         'float-bob-x': 'float-bob-x 2s linear infinite',
         ripple: 'ripple 3s infinite',
         'top-bottom-from-top': 'top-bottom-from-top 0.5s forwards',
+      },
+      animationDelay: {
+        '150': '150ms',
+        '300': '300ms',
       },
     },
   },

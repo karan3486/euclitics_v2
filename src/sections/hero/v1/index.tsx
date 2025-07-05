@@ -60,7 +60,7 @@ export function Hero() {
 
                 <div
                   className={cn(
-                    'absolute inset-0 -z-1  bg-accent-700 bg-cover bg-no-repeat bg-blend-luminosity [background-position:top_center] [transform:scale(1)] [transition:7000ms_ease,opacity_1500ms_ease-in]',
+                    'absolute inset-0 -z-1  bg-accent-700 bg-cover bg-no-repeat [background-position:top_center] [transform:scale(1)] [transition:7000ms_ease,opacity_1500ms_ease-in]',
                     styles['hero-bg'],
                     // before
                     'before:absolute before:inset-0 before:bg-[#EDF8FE] before:opacity-80  dark:before:bg-accent-900',

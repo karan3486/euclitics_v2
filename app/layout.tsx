@@ -1,4 +1,5 @@
 import './globals.css';
+import './animation-utils.css';
 import { Metadata } from 'next';
 import { primary, secondary } from '@/fonts';
 import { AOSInit } from '@/src/utils/aos';
@@ -7,6 +8,7 @@ import { cn } from '@/src/utils/shadcn';
 import { Toaster } from 'sonner';
 import { ThemeProvider } from '@/src/components/theme-provider';
 import { ModeToggle } from '@/src/components/mode-toggle';
+import { NavigationProvider } from '@/src/components/navigation-provider';
 
 interface Props {
   children: React.ReactNode;
@@ -37,14 +39,16 @@ export default async function RootLayout({ children }: Props) {
           enableSystem
           disableTransitionOnChange
         >
-          <div
-            className={cn(
-              'bg-white text-accent-800 dark:bg-accent-900 dark:text-body'
-            )}
-          >
-            <main>{children}</main>
-            <ModeToggle />
-          </div>
+          <NavigationProvider>
+            <div
+              className={cn(
+                'bg-white text-accent-800 dark:bg-accent-900 dark:text-body'
+              )}
+            >
+              <main>{children}</main>
+              <ModeToggle />
+            </div>
+          </NavigationProvider>
         </ThemeProvider>
         <Toaster
           richColors

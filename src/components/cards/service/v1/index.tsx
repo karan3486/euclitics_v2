@@ -2,8 +2,10 @@ import { Button } from '@/src/components/button';
 import { CustomLink } from '@/src/components/custom-link';
 import { cn } from '@/src/utils/shadcn';
 import { FaPlus } from 'react-icons/fa6';
+import { ImageProps } from '@/src/common-types';
 
 export interface ServiceProps {
+  image?: ImageProps;
   icon: React.ReactNode;
   title: string;
   description: string;

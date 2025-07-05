@@ -9,27 +9,27 @@ import { FaCircleCheck, FaPhone } from 'react-icons/fa6';
 
 const services: LinkProps[] = [
   {
-    label: 'AI Insights Pro',
+    label: 'Smart Retail Optimization',
     href: '/',
   },
   {
-    label: 'Tech Armor Security',
+    label: 'Predictive Healthcare Systems',
     href: '/',
   },
   {
-    label: 'Blockchain Forge',
+    label: 'Financial Fraud Detection',
     href: '/',
   },
   {
-    label: 'DigitalIQ Consulting',
+    label: 'AI-Powered HR & Recruitment',
     href: '/',
   },
   {
-    label: 'RapidApp Innovate',
+    label: 'Customer Service Automation',
     href: '/',
   },
   {
-    label: 'RoboLogic Labs',
+    label: 'EdTech Personalization',
     href: '/',
   },
 ];
@@ -135,10 +135,8 @@ export function ServiceDetailsSection() {
             <div className="grid gap-30px">
               <div className="relative z-1 bg-accent-100 p-10 dark:bg-accent-700">
                 <p>
-                  Aliquam eros justo, posuere loborti vive rra laoreet matti
-                  ullamc per posu ere viverra .Aliquam os justo, posuere
-                  lobortis non, vive rra oreet augue mattis ferment ullam corper
-                  viverra laoreet vive rra
+                  We help businesses evolve through intelligent transformation—offering expert AI
+                  guidance every step of the way, with clarity, confidence, and measurable results.
                 </p>
                 <span className="absolute bottom-5 right-5 -z-1">
                   <svg
@@ -165,9 +163,9 @@ export function ServiceDetailsSection() {
                 />
                 <div>
                   <h3 className="h3 text-accent-700 dark:text-white">
-                    Darliana shimp
+                    Karan Shrestha
                   </h3>
-                  <p>Manager</p>
+                  <p>CEO and AI Expert</p>
                 </div>
               </div>
             </div>
@@ -201,19 +199,17 @@ export function ServiceDetailsSection() {
               </span>
             </div>
             <p>
-              Aliquam eros justo, posuere loborti viverra lao ullamcorper
-              posuere viverra .Aliquam eros justo, posuere lobortis non, viverra
-              laoreet augue mattis start fermentum ullamcor viverra laoreet By
-              Admin . Creativity . 28th February 2022 . Leave a comment viverra
-              laoreet augue mattis start fermentum start fermentum ullamcor
-              laoreet augue mattis start fermentum ullamcor viverra laoreet.
+              We help you define your AI strategy and implement it effectively,
+              ensuring you stay ahead of the curve in the digital landscape.
+              Whether you're just starting or scaling your AI adoption, our
+              team provides end-to-end support—from business case development to
+              deployment.
             </p>
             <p>
-              Aliquam eros justo, posuere loborti viverra lao ullamcorper
-              posuere viverra .Aliquam eros justo, posuere lobortis non, viverra
-              laoreet augue mattis start fermentum ullamcor viverra laoreet By
-              Admin . Creativity . 28th February 2022 . Leave a comment viverra
-              laoreet augue mattis start fermentum start fermentum
+              Our consulting approach ensures alignment between your AI initiatives
+              and your long-term business vision. By combining data-driven insights,
+              advanced machine learning, and ethical AI practices, we empower your
+              teams to drive real transformation.
             </p>
             <div className="my-10 grid items-center gap-8 md:grid-cols-2">
               <Image
@@ -230,12 +226,12 @@ export function ServiceDetailsSection() {
                       <FaCircleCheck />
                     </span>
                     <h3 className="flex-1 text-md font-bold text-accent-700 dark:text-white">
-                      Best Emplementation
+                      Data to Decisions
                     </h3>
                   </div>
                   <p>
-                    ished fact that a reader will be distrol acted bioiiy desig
-                    ished fact that a reader will acted bioiiy desig.
+                    We translate your raw data into actionable intelligence with the help of custom
+                    AI frameworks and strategic models.
                   </p>
                 </div>
                 <div className="grid gap-3">
@@ -244,23 +240,22 @@ export function ServiceDetailsSection() {
                       <FaCircleCheck />
                     </span>
                     <h3 className="flex-1 text-md font-bold text-accent-700 dark:text-white">
-                      Best Emplementation
+                      End-to-End AI Implementation
                     </h3>
                   </div>
                   <p>
-                    ished fact that a reader will be distrol acted bioiiy desig
-                    ished fact that a reader will acted bioiiy desig.
+                    From defining use cases to productionizing models, we deliver practical,
+                    scalable AI solutions tailored to your business.
                   </p>
                 </div>
               </div>
             </div>
 
             <p>
-              Aliquam eros justo, posuere loborti viverra lao ullamcorper
-              posuere viverra .Aliquam eros justo, posuere lobortis non, viverra
-              laoreet augue mattis start fermentum ullamcor viverra laoreet By
-              Admin . Creativity . 28th February 2022 . Leave a comment viverra
-              laoreet augue mattis start fermentum start fermentum
+              Our team works closely with stakeholders to assess existing capabilities,
+              identify growth areas, and implement AI tools that enhance productivity,
+              customer experience, and innovation. With ongoing monitoring and optimization,
+              we ensure your AI systems continue to perform long after deployment.
             </p>
 
             <div className="mt-2.5 grid grid-cols-[1fr_260px] gap-6">
@@ -270,9 +265,8 @@ export function ServiceDetailsSection() {
                     Best Emplementation
                   </h3>
                   <p>
-                    ished fact that a reader will be distrol acted bioiiy desig
-                    the.ished fact that a reader will be distrol acted bioiiy
-                    bioiiy desig the.ished fact that a reader.
+                    Our structured roadmap ensures rapid integration of AI tools with minimal
+                    disruption—making your business smarter and future-ready.
                   </p>
                 </div>
                 <div>
@@ -280,9 +274,8 @@ export function ServiceDetailsSection() {
                     Design make for you.
                   </h3>
                   <p>
-                    ished fact that a reader will be distrol acted bioiiy desig
-                    the.ished fact that a reader will be distrol acted bioiiy
-                    bioiiy desig the.ished fact that a reader.
+                    We customize every AI solution to your exact needs, making sure it integrates
+                    smoothly with your data and operations.
                   </p>
                 </div>
                 <div>
@@ -290,9 +283,8 @@ export function ServiceDetailsSection() {
                     Finished the process
                   </h3>
                   <p>
-                    ished fact that a reader will be distrol acted bioiiy desig
-                    the.ished fact that a reader will be distrol acted bioiiy
-                    bioiiy desig the.ished fact that a reader.
+                    Once deployed, we don’t walk away. We train your team, monitor the models,
+                    and help you scale responsibly over time.
                   </p>
                 </div>
               </div>

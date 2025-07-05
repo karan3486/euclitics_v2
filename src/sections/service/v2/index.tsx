@@ -5,18 +5,26 @@ import { getStaggeredDelay } from '@/src/utils/set-staggered-delay';
 import { cn } from '@/src/utils/shadcn';
 import { ClassValue } from 'clsx';
 import { ServiceCard, ServiceProps } from 'src/components/cards/service/v2';
+import { Button } from '@/src/components/button';
+import { CustomLink } from '@/src/components/custom-link';
 
 export interface ServiceSectionProps {
   sectionHeading: SectionHeadingWithoutStylingProps;
   services: ServiceProps[];
   className?: ClassValue;
+  showMoreButton?: boolean;
+  limitServices?: boolean;
 }
 
 export function ServiceSection({
   sectionHeading,
   services,
   className,
+  showMoreButton = false,
+  limitServices = false,
 }: ServiceSectionProps) {
+  // If limitServices is true, only show the first 3 services
+  const displayServices = limitServices ? services.slice(0, 3) : services;
   return (
     <section className={cn('section-padding-primary', className)}>
       <Container>
@@ -29,9 +37,9 @@ export function ServiceSection({
             />
           </div>
         </div>
-        {services && services.length > 0 && (
+        {displayServices && displayServices.length > 0 && (
           <div className="-mx-4 flex flex-wrap justify-center gap-y-30px">
-            {services.map((service, index) => (
+            {displayServices.map((service, index) => (
               <div
                 key={index}
                 data-aos="fade-up"
@@ -41,6 +49,14 @@ export function ServiceSection({
                 <ServiceCard {...service} />
               </div>
             ))}
+          </div>
+        )}
+        
+        {showMoreButton && (
+          <div className="mt-12 md:mt-16 text-center" data-aos="fade-up" data-aos-delay="700">
+            <CustomLink href="/services">
+              <Button>More Services</Button>
+            </CustomLink>
           </div>
         )}
       </Container>

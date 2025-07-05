@@ -57,7 +57,7 @@ export const footerSectionData: FooterSectionProps = {
   },
   columnTwo: {
     title: 'Address',
-    location: '2972 Westheimer Rd. Santa Ana, Illinois 85486 ',
+    location: 'Fremont, CA 94536, USA',
     mails: ['debbie.baker@example.com', 'nevaeh.simm@example.com'],
     phoneNumbers: ['(405) 555-0128', '(629) 555-0129'],
   },
