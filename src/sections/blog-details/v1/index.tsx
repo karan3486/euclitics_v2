@@ -1,5 +1,4 @@
 import {
-  ImageProps,
   LinkProps,
   SocialItemProps,
   blurDataUrl,
@@ -14,48 +13,42 @@ import { cn } from '@/src/utils/shadcn';
 import Image from 'next/image';
 import {
   FaLinkedinIn,
-  FaMagnifyingGlass,
-  FaQuoteRight,
-  FaRegComments,
-  FaRegFolderOpen,
-  FaRegUser,
-  FaReply,
   FaTags,
   FaFacebookF,
   FaTwitter,
   FaInstagram,
 } from 'react-icons/fa6';
 
-interface AuthorProps {
-  image: Omit<ImageProps, 'width' | 'height'>;
-  name: string;
-  about: string;
-  socialLinks: SocialItemProps[];
-}
+// interface AuthorProps {
+//   image: Omit<ImageProps, 'width' | 'height'>;
+//   name: string;
+//   about: string;
+//   socialLinks: SocialItemProps[];
+// }
 
-const authorData: AuthorProps = {
-  image: {
-    src: '/assets/images/blog/author-1.png',
-    alt: 'author image 1',
-  },
-  name: 'Naturials paul',
-  about:
-    'Aliquam eros justo, posuere lobort viverra lao ullamcorper posuere viverra .Aliquam eros justo, posuere lobortis non',
-  socialLinks: [
-    {
-      icon: <FaFacebookF />,
-      href: 'https://www.facebook.com/',
-    },
-    {
-      icon: <FaTwitter />,
-      href: 'https://twitter.com/',
-    },
-    {
-      icon: <FaInstagram />,
-      href: 'https://www.instagram.com/',
-    },
-  ],
-};
+// const authorData: AuthorProps = {
+//   image: {
+//     src: '/assets/images/blog/author-1.png',
+//     alt: 'author image 1',
+//   },
+//   name: 'Naturials paul',
+//   about:
+//     'Aliquam eros justo, posuere lobort viverra lao ullamcorper posuere viverra .Aliquam eros justo, posuere lobortis non',
+//   socialLinks: [
+//     {
+//       icon: <FaFacebookF />,
+//       href: 'https://www.facebook.com/',
+//     },
+//     {
+//       icon: <FaTwitter />,
+//       href: 'https://twitter.com/',
+//     },
+//     {
+//       icon: <FaInstagram />,
+//       href: 'https://www.instagram.com/',
+//     },
+//   ],
+// };
 
 const socialLinks: SocialItemProps[] = [
   {
@@ -76,67 +69,67 @@ const socialLinks: SocialItemProps[] = [
   },
 ];
 
-function Author({ image, name, about, socialLinks }: AuthorProps) {
-  return (
-    <div className="space-y-5 rounded-5 bg-accent-100 p-8 text-center dark:bg-accent-700 lg:p-10">
-      <Image
-        src={image.src}
-        alt={image.alt || name}
-        width={127}
-        height={127}
-        placeholder="blur"
-        blurDataURL={blurDataUrl}
-        className="mx-auto rounded-full object-cover"
-      />
-      <h3 className="font-secondary text-lg font-bold leading-[1.25] text-accent-900 dark:text-white md:text-xl">
-        {name}
-      </h3>
-      <p>{about}</p>
-      {socialLinks && socialLinks.length > 0 && (
-        <nav aria-label="social links">
-          <ul className="inline-flex items-center divide-x  divide-accent-800/50 text-accent-900 dark:divide-accent-100/50  dark:text-white">
-            {socialLinks.map((socialLink, index) => (
-              <li key={index}>
-                <CustomLink
-                  href={socialLink.href}
-                  openNewTab
-                  className="block px-4 text-base/[1.75] transition-transform duration-350 hover:-translate-y-1 hover:text-primary"
-                >
-                  <span>{socialLink.icon}</span>
-                </CustomLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
-    </div>
-  );
-}
+// function Author({ image, name, about, socialLinks }: AuthorProps) {
+//   return (
+//     <div className="space-y-5 rounded-5 bg-accent-100 p-8 text-center dark:bg-accent-700 lg:p-10">
+//       <Image
+//         src={image.src}
+//         alt={image.alt || name}
+//         width={127}
+//         height={127}
+//         placeholder="blur"
+//         blurDataURL={blurDataUrl}
+//         className="mx-auto rounded-full object-cover"
+//       />
+//       <h3 className="font-secondary text-lg font-bold leading-[1.25] text-accent-900 dark:text-white md:text-xl">
+//         {name}
+//       </h3>
+//       <p>{about}</p>
+//       {socialLinks && socialLinks.length > 0 && (
+//         <nav aria-label="social links">
+//           <ul className="inline-flex items-center divide-x  divide-accent-800/50 text-accent-900 dark:divide-accent-100/50  dark:text-white">
+//             {socialLinks.map((socialLink, index) => (
+//               <li key={index}>
+//                 <CustomLink
+//                   href={socialLink.href}
+//                   openNewTab
+//                   className="block px-4 text-base/[1.75] transition-transform duration-350 hover:-translate-y-1 hover:text-primary"
+//                 >
+//                   <span>{socialLink.icon}</span>
+//                 </CustomLink>
+//               </li>
+//             ))}
+//           </ul>
+//         </nav>
+//       )}
+//     </div>
+//   );
+// }
 
-function SearchBox() {
-  return (
-    <div className="space-y-5 rounded-5 bg-accent-100 p-8 dark:bg-accent-700 lg:p-10">
-      <h3 className="font-secondary text-md font-bold leading-[1.25] text-accent-900 dark:text-white md:text-lg">
-        Searach
-      </h3>
-      <div className="flex items-center gap-0">
-        <TextInput
-          placeholder="Your name"
-          name="text"
-          className="rounded-5 rounded-r-none border-none bg-white dark:bg-accent-900"
-        />
-        <Button
-          type="submit"
-          className="!h-[60px] !w-[60px] flex-none rounded-l-none !p-0"
-        >
-          <span className="relative z-1">
-            <FaMagnifyingGlass />
-          </span>
-        </Button>
-      </div>
-    </div>
-  );
-}
+// function SearchBox() {
+//   return (
+//     <div className="space-y-5 rounded-5 bg-accent-100 p-8 dark:bg-accent-700 lg:p-10">
+//       <h3 className="font-secondary text-md font-bold leading-[1.25] text-accent-900 dark:text-white md:text-lg">
+//         Searach
+//       </h3>
+//       <div className="flex items-center gap-0">
+//         <TextInput
+//           placeholder="Your name"
+//           name="text"
+//           className="rounded-5 rounded-r-none border-none bg-white dark:bg-accent-900"
+//         />
+//         <Button
+//           type="submit"
+//           className="!h-[60px] !w-[60px] flex-none rounded-l-none !p-0"
+//         >
+//           <span className="relative z-1">
+//             <FaMagnifyingGlass />
+//           </span>
+//         </Button>
+//       </div>
+//     </div>
+//   );
+// }
 
 interface CategoryListProps {
   links: LinkProps[];
@@ -249,7 +242,7 @@ interface BlogDetailsSectionProps {
 
 export function BlogDetilsSection({ blogPost }: BlogDetailsSectionProps) {
   // Use provided blog post data if available, otherwise use default data
-  const postTitle = blogPost?.title || 'The Importance of Regular IT Maintenance';
+  // const postTitle = blogPost?.title || 'The Importance of Regular IT Maintenance';
   const postContent = blogPost?.content || `
     <p>
       Aliquam eros justo, posuere loborti viverra laoreet augue
@@ -277,11 +270,11 @@ export function BlogDetilsSection({ blogPost }: BlogDetailsSectionProps) {
   `;
   const postImage = blogPost?.image?.src || '/assets/images/blog/blog-details-1.jpg';
   const postImageAlt = blogPost?.image?.alt || 'blog details image';
-  const postDate = blogPost?.date || 'July 21, 2023';
-  const postAuthor = blogPost?.author?.name || 'Naturials paul';
-  const postCategory = blogPost?.category || 'IT Solutions';
+  // const postDate = blogPost?.date || 'July 21, 2023';
+  // const postAuthor = blogPost?.author?.name || 'Naturials paul';
+  // const postCategory = blogPost?.category || 'IT Solutions';
   const postTags = blogPost?.tags || ['IT', 'Technology', 'Solutions'];
-  const commentCount = blogPost?.commentCount || 3;
+  // const commentCount = blogPost?.commentCount || 3;
   return (
     <section className="section-padding-primary">
       <Container>

@@ -8,8 +8,9 @@ import { Footer } from '@/src/layout/footer/v2';
 import { Container } from '@/src/components/container';
 import { Button } from '@/src/components/button';
 import { useParams, useRouter } from 'next/navigation';
-import React, { useState, useEffect, useRef } from 'react';
-import { validateSecretKey, updateBlogPost, getBlogPostBySlug } from '@/src/utils/blog-utils';
+import React, { useState, useEffect } from 'react';
+import { validateSecretKey, getBlogPostBySlug } from '@/src/utils/blog-utils';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { BlogPost } from '@/data/blog-section/posts';
 
@@ -435,10 +436,13 @@ export default function EditBlogPage() {
                       {formData.imageSrc && (
                         <div className="mb-2">
                           <p className="mb-1 text-sm font-medium">Current image:</p>
-                          <img 
+                          <Image 
                             src={formData.imageSrc} 
                             alt={formData.imageAlt || 'Current blog image'} 
+                            width={128}
+                            height={128}
                             className="h-32 w-auto object-cover rounded-md border border-gray-300" 
+                            unoptimized={true}
                           />
                         </div>
                       )}
@@ -447,10 +451,13 @@ export default function EditBlogPage() {
                       {previewUrl && (
                         <div className="mb-2">
                           <p className="mb-1 text-sm font-medium">New image preview:</p>
-                          <img 
+                          <Image 
                             src={previewUrl} 
                             alt="New image preview" 
+                            width={128}
+                            height={128}
                             className="h-32 w-auto object-cover rounded-md border border-primary" 
+                            unoptimized={true}
                           />
                         </div>
                       )}

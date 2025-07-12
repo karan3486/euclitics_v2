@@ -1,6 +1,6 @@
 import { Footer } from '@/src/layout/footer/v2';
 import { MainHeader } from '@/src/layout/header';
-import { CtaSection } from '@/src/sections/cta/v1';
+// import { CtaSection } from '@/src/sections/cta/v1';
 import { HeroSection } from '@/src/sections/hero/v3';
 import { PricingSection } from '@/src/sections/pricing/version-2';
 import { Metadata } from 'next';

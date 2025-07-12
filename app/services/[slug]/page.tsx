@@ -2,7 +2,6 @@ import { Footer } from '@/src/layout/footer/v2';
 import { MainHeader } from '@/src/layout/header';
 import { HeroSection } from '@/src/sections/hero/v3';
 import { ServiceDetailsSection } from '@/src/sections/service-details/v1';
-import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 // Import all service data to generate static paths and get metadata

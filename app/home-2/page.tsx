@@ -3,7 +3,7 @@ import { Footer } from '@/src/layout/footer/v2';
 import { MainHeader } from '@/src/layout/header';
 import { AboutSection } from '@/src/sections/about/v2';
 import { BlogSection } from '@/src/sections/blog/v2';
-import { CtaSection } from '@/src/sections/cta/v2';
+// import { CtaSection } from '@/src/sections/cta/v2';
 import { HeroSection } from '@/src/sections/hero/v2';
 import { ProjectSection } from '@/src/sections/project/v2';
 import { projectSectionData } from '@/data/project-section/v2/home-page';

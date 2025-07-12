@@ -1,14 +1,15 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { Loader } from '../loader';
 
 interface NavigationProviderProps {
   children: React.ReactNode;
 }
 
-export function NavigationProvider({ children }: NavigationProviderProps) {
+// Client component that uses searchParams
+function NavigationContent() {
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -17,17 +18,25 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     // Show loader when navigation starts
     setIsLoading(true);
 
-    // Hide loader after a short delay to ensure content is loaded
+    // Hide loader after a short delay to ensure smooth transition
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 800);
+    }, 500);
 
+    // Clean up timer
     return () => clearTimeout(timer);
   }, [pathname, searchParams]);
 
+  return <Loader isLoading={isLoading} />;
+}
+
+// Main provider component with Suspense boundary
+export function NavigationProvider({ children }: NavigationProviderProps) {
   return (
     <>
-      <Loader isLoading={isLoading} />
+      <Suspense fallback={<Loader isLoading={true} />}>
+        <NavigationContent />
+      </Suspense>
       {children}
     </>
   );

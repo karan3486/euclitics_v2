@@ -1,5 +1,8 @@
 import { BlogPost, getAllBlogPosts as fetchAllBlogPosts, getBlogPostBySlug as fetchBlogPostBySlug } from '@/data/blog-section/posts';
-import { BlogTitle, getAllBlogTitles, getBlogTitleBySlug } from '@/data/blog-section/posts-title';
+import { BlogTitle, getAllBlogTitles } from '@/data/blog-section/posts-title';
+
+// Prefix unused functions with underscore to satisfy linting rules
+const _getBlogTitleBySlug = () => {}; // This is a placeholder to fix the linting error
 
 // These utility functions now use the API functions from posts.ts and posts-title.ts
 
@@ -52,8 +55,8 @@ export async function createBlogPost(blogPost: Omit<BlogPost, 'id'>): Promise<Bl
     
     // Handle image upload if it's a File object
     if (blogPost.image && typeof blogPost.image.src !== 'string') {
-      // Use as any to bypass TypeScript checking for File/Blob
-      formData.append('image', blogPost.image.src as any);
+      // Use proper type for File/Blob objects
+      formData.append('image', blogPost.image.src as File | Blob);
       formData.append('image_alt', blogPost.image.alt || blogPost.title);
     }
     
@@ -135,8 +138,8 @@ export async function updateBlogPost(id: string, updatedData: Partial<BlogPost>)
     
     // Handle image upload if it's a Blob/File object
     if (updatedData.image && typeof updatedData.image.src !== 'string') {
-      // Use as any to bypass TypeScript checking for File/Blob
-      formData.append('image', updatedData.image.src as any);
+      // Use proper type for File/Blob objects
+      formData.append('image', updatedData.image.src as File | Blob);
       formData.append('image_alt', updatedData.image.alt || updatedData.title || currentPost.title);
     }
     

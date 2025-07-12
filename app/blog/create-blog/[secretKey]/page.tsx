@@ -9,9 +9,10 @@ import { Container } from '@/src/components/container';
 import { Button } from '@/src/components/button';
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import { validateSecretKey, createBlogPost, generateSlugFromTitle, checkSlugExists } from '@/src/utils/blog-utils';
-import { notFound } from 'next/navigation';
-import { BlogPost } from '@/data/blog-section/posts';
+import { validateSecretKey, generateSlugFromTitle, checkSlugExists } from '@/src/utils/blog-utils';
+import Image from 'next/image';
+// import { notFound } from 'next/navigation';
+// import { BlogPost } from '@/data/blog-section/posts';
 
 export default function CreateBlogPage() {
   const params = useParams();
@@ -435,10 +436,13 @@ export default function CreateBlogPage() {
                   />
                   {formData.imageSrc && (
                     <div className="mt-2">
-                      <img 
+                      <Image 
                         src={formData.imageSrc} 
                         alt="Preview" 
+                        width={80}
+                        height={80}
                         className="h-20 w-auto object-cover rounded-md" 
+                        unoptimized={true}
                       />
                     </div>
                   )}
