@@ -4,7 +4,7 @@ import { SectionHeading } from '@/src/components/section-heading';
 import { cn } from '@/src/utils/shadcn';
 import { missionSectionData } from '@/data/mission-section/v1';
 
-import missionImage from 'public/assets/images/mission/mission.avif';
+import missionImage from 'public/assets/images/mission/mission.png';
 
 export interface MissionSectionProps {
   className?: string;
