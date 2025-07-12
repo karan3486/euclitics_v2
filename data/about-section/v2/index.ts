@@ -14,6 +14,8 @@ export const aboutSectionData: AboutSectionProps = {
     'Web & API Development',
     'Cloud Integration & DevOps Pipelines',
     'Generative AI & Machine Learning',
+    'Mobile App Development',
+    'Search Engine Optimization',
   ],
   image: {
     src: '/assets/images/about/about-5.png',

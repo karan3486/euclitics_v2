@@ -20,7 +20,7 @@ export const blogSectionData: BlogSectionProps = {
         name: 'Admin',
         slug: '',
       },
-      slug: '/blog/single',
+      slug: '/blog/advanced-encryption',
       title: 'We implement state-of-the-art encryption',
     },
     {
@@ -33,7 +33,7 @@ export const blogSectionData: BlogSectionProps = {
         name: 'Admin',
         slug: '',
       },
-      slug: '/blog/single',
+      slug: '/blog/tailored-services',
       title: 'we tailor our services to meet your specific business',
     },
     {
@@ -46,7 +46,7 @@ export const blogSectionData: BlogSectionProps = {
         name: 'Admin',
         slug: '',
       },
-      slug: '/blog/single',
+      slug: '/blog/streamlined-processes',
       title: 'IT solutions enhance efficiency, streamline processes',
     },
   ],

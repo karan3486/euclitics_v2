@@ -8,12 +8,12 @@ import { cn } from '@/src/utils/shadcn';
 import { Navigation } from '../common/navigation';
 import {
   FaArrowRight,
-  FaCartShopping,
   FaEnvelope,
   FaMagnifyingGlass,
   FaPaperPlane,
   FaPhone,
 } from 'react-icons/fa6';
+import Image from 'next/image';
 import { Button } from '@/src/components/button';
 import { CustomLink } from '@/src/components/custom-link';
 import { headerData } from '@/data/layout/header/v2';
@@ -129,9 +129,20 @@ export function Header() {
                       </button>
                     </li>
                     <li>
-                      <span className={actionIconClasses}>
-                        <FaCartShopping />
-                      </span>
+                      <a 
+                        href="https://www.upwork.com/agencies/1939892645701898456/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={actionIconClasses}
+                        title="Connect on Upwork"
+                      >
+                        <Image 
+                          src="/assets/images/hero/upword.png" 
+                          alt="Upwork" 
+                          width={20} 
+                          height={20} 
+                        />
+                      </a>
                     </li>
                     <li>
                       <OffCanvas />

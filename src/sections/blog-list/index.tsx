@@ -1,3 +1,5 @@
+"use client";
+
 import { ImageProps, LinkProps } from '@/src/common-types';
 import { Button } from '@/src/components/button';
 import { Container } from '@/src/components/container';
@@ -14,58 +16,25 @@ import {
   FaRegUser,
 } from 'react-icons/fa6';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa6';
+import { useState, useEffect } from 'react';
+import { BlogTitle, getAllBlogTitles } from '@/data/blog-section/posts-title';
 
 interface BlogProps {
-  image: Omit<ImageProps, 'width' | 'height'>;
+  image: {
+    src: string;
+    alt: string;
+  };
   authorName: string;
   category: string;
-  commentCount: string;
+  commentCount?: string;
   title: string;
   description: string;
   slug: string;
 }
 
-const blogs: BlogProps[] = [
-  {
-    slug: '/blog/single',
-    image: {
-      src: '/assets/images/blog/blog-lg-1.png',
-      alt: 'Pioneering Progress, One Algorithm at a Time',
-    },
-    authorName: 'admin',
-    category: 'Category',
-    commentCount: '05',
-    title: 'Pioneering Progress, One Algorithm at a Time',
-    description:
-      'Aliquam eros justo, posuere loborti viverra lao ullamcorper posuere viverra .Aliquam eros justo, posuere lobortis non, viverra laoreet augue mattis start fermentum ullamcor viverra laoreet By Admin . Creativity . 28th February 2022 . Leave a comment viverra laoreet augue mattis start fermentum ',
-  },
-  {
-    slug: '/blog/single',
-    image: {
-      src: '/assets/images/blog/blog-lg-2.png',
-      alt: 'Empowering Businesses with Tech Synergy',
-    },
-    authorName: 'admin',
-    category: 'Category',
-    commentCount: '05',
-    title: 'Empowering Businesses with Tech Synergy',
-    description:
-      'Aliquam eros justo, posuere loborti viverra lao ullamcorper posuere viverra .Aliquam eros justo, posuere lobortis non, viverra laoreet augue mattis start fermentum ullamcor viverra laoreet By Admin . Creativity . 28th February 2022 . Leave a comment viverra laoreet augue mattis start fermentum ',
-  },
-  {
-    slug: '/blog/single',
-    image: {
-      src: '/assets/images/blog/blog-lg-3.png',
-      alt: 'Unleashing Potential through IT Excellence',
-    },
-    authorName: 'admin',
-    category: 'Category',
-    commentCount: '05',
-    title: 'Unleashing Potential through IT Excellence',
-    description:
-      'Aliquam eros justo, posuere loborti viverra lao ullamcorper posuere viverra .Aliquam eros justo, posuere lobortis non, viverra laoreet augue mattis start fermentum ullamcor viverra laoreet By Admin . Creativity . 28th February 2022 . Leave a comment viverra laoreet augue mattis start fermentum ',
-  },
-];
+interface BlogListProps {
+  className?: string;
+}
 
 interface Social {
   icon: React.ReactNode;
@@ -169,23 +138,27 @@ interface CategoryListProps {
 const categoryListData: CategoryListProps = {
   links: [
     {
-      label: 'Genarel consturction',
+      label: 'Web Development',
       href: '',
     },
     {
-      label: 'Business Advice',
+      label: 'Machine Learning',
       href: '',
     },
     {
-      label: 'Stock market',
+      label: 'Salesforce',
       href: '',
     },
     {
-      label: 'Regular start',
+      label: 'Azure DevOps',
       href: '',
     },
     {
-      label: 'Regular start',
+      label: 'Data Analytics',
+      href: '',
+    },
+    {
+      label: 'Generative AI',
       href: '',
     },
   ],
@@ -261,62 +234,128 @@ const linkClasses = cn(
   'transition-colors duration-400 hover:text-primary ease-in-out'
 );
 
-export function BlogListSection() {
+export function BlogListSection({ className }: BlogListProps) {
+  const [blogs, setBlogs] = useState<BlogProps[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [displayedBlogs, setDisplayedBlogs] = useState<BlogProps[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  
+  // Get page size from environment variable or default to 4
+  const pageSize = typeof process.env.NEXT_PUBLIC_PAGE_SIZE !== 'undefined' 
+    ? parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE) 
+    : 4;
+  
+  useEffect(() => {
+    // Get blog titles from the API with pagination
+    const fetchBlogTitles = async () => {
+      try {
+        setIsLoading(true);
+        // Fetch titles from API with current page and page size
+        debugger;
+        const paginatedResponse = await getAllBlogTitles(currentPage, pageSize);
+        
+        // Convert BlogTitle items to BlogProps
+        const titlesArray = paginatedResponse.items.map(title => {
+          // Get API URL for image prefixing
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+          
+          // Handle image URL - use API URL as prefix
+          let imageSrc = title.image?.src || '/assets/images/blog/blogplaceholder.jpg';
+          imageSrc = `${apiUrl}${imageSrc}`;
+          
+          return {
+            image: {
+              src: imageSrc,
+              alt: title.image?.alt || title.title || 'Blog image'
+            },
+            authorName: title.authorName || 'Unknown',
+            category: title.category || 'Uncategorized',
+            commentCount: title.commentCount,
+            title: title.title || 'Untitled',
+            description: title.description || '',
+            slug: title.slug
+          };
+        });
+        
+        // Set blogs directly from the API response
+        setBlogs(titlesArray);
+        
+        // Use pagination metadata from API response
+        setTotalPages(paginatedResponse.pages);
+        
+        // No need for displayedBlogs state anymore since API handles pagination
+        setDisplayedBlogs(titlesArray);
+      } catch (error) {
+        console.error('Error fetching blog titles:', error);
+        // Fallback to empty array if there's an error
+        setBlogs([]);
+        setDisplayedBlogs([]);
+        setTotalPages(1);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchBlogTitles();
+  }, [currentPage, pageSize]); // Re-fetch when page or page size changes
+  
+  // No need for client-side pagination anymore since the API handles it
+  // We're directly setting displayedBlogs in the fetchBlogTitles function
+  
+  // Handle page change
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      // Show loading state
+      setIsLoading(true);
+      
+      // Scroll to top of the section
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      
+      // Set a small timeout to simulate loading and allow scroll to complete
+      setTimeout(() => {
+        setCurrentPage(page);
+        setIsLoading(false);
+      }, 500);
+    }
+  };
+  
   return (
-    <section className="section-padding-primary">
+    <section className={cn('section-padding-primary', className)}>
       <Container>
         <div className="grid gap-30px lg:grid-cols-[1fr_410px]">
           <div>
-            {blogs && blogs.length > 0 && (
+            {isLoading ? (
+              <div className="flex justify-center items-center py-20">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+              </div>
+            ) : blogs.length > 0 ? (
               <div className="grid gap-10 lg:gap-20">
-                {blogs.map(
-                  (
-                    {
-                      slug,
-                      image,
-                      authorName,
-                      category,
-                      commentCount,
-                      title,
-                      description,
-                    },
-                    index
-                  ) => (
-                    <article key={index} className="group">
-                      <figure
-                        className={cn(
-                          // General
-                          'relative z-1 overflow-hidden rounded-5',
-
-                          // after => image overlay effect
-                          'after:pointer-events-none after:absolute after:left-0 after:top-0 after:z-1 after:h-0 after:w-full after:bg-white/30 after:opacity-100',
-                          // hover
-                          'group-hover:transition-all group-hover:after:h-full group-hover:after:opacity-0 group-hover:after:duration-400 group-hover:after:ease-linear'
-                        )}
-                      >
+                {displayedBlogs.map((blog, index) => (
+                  <article key={index} className="group rounded-5 bg-white p-5 shadow-card dark:bg-accent-700 lg:p-8">
+                    <div className="overflow-hidden rounded-5">
+                      <CustomLink href={`/blog/${blog.slug}`} className="block">
                         <Image
-                          src={image.src}
-                          alt={image.alt}
-                          width={850}
-                          height={575}
-                          sizes="100vw"
-                          className="object-cover transition-transform duration-500 [transform:scale(1.05)] group-hover:[transform:scale(1)]"
+                          src={blog.image.src}
+                          alt={blog.image.alt}
+                          width={770}
+                          height={400}
+                          className="w-full object-cover transition-transform duration-500 hover:scale-110"
                         />
-                      </figure>
-
-                      {/* Meta  */}
-                      <ul
-                        aria-label="blog meta list"
-                        className="mb-4 mt-6 flex flex-wrap items-center gap-x-[1.125rem] gap-y-2 lg:mb-5 lg:mt-30px"
-                      >
+                      </CustomLink>
+                    </div>
+                    <div className="mt-6 lg:mt-30px">
+                      <ul className="flex flex-wrap items-center gap-5 text-sm">
                         <li className="flex items-center gap-2.5">
                           <span className="flex-none text-sm text-primary">
                             <FaRegUser />
                           </span>
                           <span>
-                            By{' '}
                             <CustomLink href="#" className={linkClasses}>
-                              {authorName}
+                              {blog.authorName}
                             </CustomLink>
                           </span>
                         </li>
@@ -324,34 +363,38 @@ export function BlogListSection() {
                           <span className="flex-none text-sm text-primary">
                             <FaRegFolderOpen />
                           </span>
-                          <CustomLink href="#" className={linkClasses}>
-                            {category}
-                          </CustomLink>
-                        </li>
-                        <li className="flex items-center gap-2.5">
-                          <span className="flex-none text-sm text-primary">
-                            <FaRegComments />
-                          </span>
                           <span>
                             <CustomLink href="#" className={linkClasses}>
-                              Comments ({commentCount})
+                              {blog.category}
                             </CustomLink>
                           </span>
                         </li>
+                        {blog.commentCount && (
+                          <li className="flex items-center gap-2.5">
+                            <span className="flex-none text-sm text-primary">
+                              <FaRegComments />
+                            </span>
+                            <span>
+                              <CustomLink href="#" className={linkClasses}>
+                                Comments ({blog.commentCount})
+                              </CustomLink>
+                            </span>
+                          </li>
+                        )}
                       </ul>
                       <h3 className="font-secondary text-lg font-bold leading-[1.25] text-accent-900 dark:text-white md:text-xl">
                         <CustomLink
-                          href={slug}
+                          href={`/blog/${blog.slug}`}
                           className={cn(
                             linkClasses,
                             'text-accent-900 hover:text-primary dark:text-white dark:hover:text-primary'
                           )}
                         >
-                          {title}
+                          {blog.title}
                         </CustomLink>
                       </h3>
                       <div className="my-4 h-px bg-body/30 lg:my-5"></div>
-                      <p>{description}</p>
+                      <p>{blog.description}</p>
                       <Button
                         asChild
                         className={cn([
@@ -360,71 +403,77 @@ export function BlogListSection() {
                           'after:hidden',
                         ])}
                       >
-                        <CustomLink href={slug}>
+                        <CustomLink href={`/blog/${blog.slug}`}>
                           <span className="relative z-1">Read More</span>
                           <span className="relative -top-px text-sm/[1]">
-                                      <FaPlus />
-                                    </span>
+                            <FaPlus />
+                          </span>
                         </CustomLink>
                       </Button>
-                    </article>
-                  )
-                )}
-                <div>
-                  <ul
-                    className="flex flex-wrap items-center justify-center gap-3 md:gap-5"
-                    aria-label="pagination"
-                  >
-                    <li>
-                      <a
-                        className={paginationItemClasses}
-                        href="#"
-                        aria-label="pagination button"
-                        role="button"
-                      >
-                        01
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className={paginationItemClasses}
-                        href="#"
-                        aria-label="pagination button"
-                        role="button"
-                      >
-                        02
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className={paginationItemClasses}
-                        href="#"
-                        aria-label="pagination button"
-                        role="button"
-                      >
-                        03
-                      </a>
-                    </li>
-                    <li>
-                      <a
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-10">
+                <p>No blog posts available.</p>
+              </div>
+            )}
+            
+            {/* Pagination - only show when there are blogs */}
+            {blogs.length > 0 && totalPages > 1 && (
+              <div className="mt-10 flex justify-center">
+                <ul className="flex items-center gap-2.5">
+                  {/* Previous button */}
+                  <li>
+                    <button
+                      className={paginationItemClasses}
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      style={{ opacity: currentPage === 1 ? 0.5 : 1 }}
+                      aria-label="Previous page"
+                    >
+                      <FaArrowRight className="rotate-180" />
+                    </button>
+                  </li>
+                  
+                  {/* Page numbers */}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <li key={page}>
+                      <button
                         className={cn(
                           paginationItemClasses,
-                          'border-primary bg-primary'
+                          currentPage === page ? 'border-primary bg-primary text-white' : ''
                         )}
-                        href="#"
-                        aria-label="pagination button"
-                        role="button"
+                        onClick={() => handlePageChange(page)}
+                        aria-label={`Page ${page}`}
+                        aria-current={currentPage === page ? 'page' : undefined}
                       >
-                        <FaArrowRight />
-                      </a>
+                        {page.toString().padStart(2, '0')}
+                      </button>
                     </li>
-                  </ul>
-                </div>
+                  ))}
+                  
+                  {/* Next button */}
+                  <li>
+                    <button
+                      className={cn(
+                        paginationItemClasses,
+                        currentPage === totalPages ? 'opacity-50' : ''
+                      )}
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      aria-label="Next page"
+                    >
+                      <FaArrowRight />
+                    </button>
+                  </li>
+                </ul>
               </div>
             )}
           </div>
           <div className="grid gap-30px self-baseline max-md:mx-auto max-md:max-w-[410px] lg:gap-10">
-            <Author {...authorData} />
+            {/* <Author {...authorData} /> */}
             <SearchBox />
             <CategoryList {...categoryListData} />
             <Tagswidget {...tagwidgetData} />

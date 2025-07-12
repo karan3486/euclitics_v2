@@ -21,30 +21,60 @@ export const menuItemsProps: HeaderProps['menuItems'] = [
     href: '/about',
   },
   {
-    title: 'Service',
+    title: 'Services',
     subMenuItems: [
       {
-        label: 'Service List',
+        label: 'All Services',
         href: '/services',
       },
       {
-        label: 'Service single',
-        href: '/services/single',
+        label: 'AI Strategy & Consulting',
+        href: '/services/ai-strategy-consulting',
+      },
+      {
+        label: 'Data Analytics & Visualization',
+        href: '/services/data-analytics-visualization',
+      },
+      {
+        label: 'Website Development',
+        href: '/services/website-development',
+      },
+      {
+        label: 'Salesforce CRM Solutions',
+        href: '/services/salesforce-crm-solutions',
+      },
+      {
+        label: 'Cloud Integration & DevOps',
+        href: '/services/cloud-integration-devops',
+      },
+      {
+        label: 'Generative AI & Machine Learning',
+        href: '/services/generative-ai-machine-learning',
+      },
+      {
+        label: 'Mobile App Development',
+        href: '/services/mobile-app-development',
+      },
+      {
+        label: 'Search Engine Optimization',
+        href: '/services/search-engine-optimization',
       },
     ],
   },
   {
-    title: 'Project',
-    subMenuItems: [
-      {
-        label: 'Project List',
-        href: '/project',
-      },
-      {
-        label: 'Project single',
-        href: '/project/single',
-      },
-    ],
+    // title: 'Project',
+    // subMenuItems: [
+    //   {
+    //     label: 'Project List',
+    //     href: '/project',
+    //   },
+    //   {
+    //     label: 'Project single',
+    //     href: '/project/single',
+    //   },
+    // ],
+    label: 'Projects',
+    href: '/project',
   },
   {
     title: 'Blog',
@@ -55,9 +85,11 @@ export const menuItemsProps: HeaderProps['menuItems'] = [
       },
       {
         label: 'Blog single',
-        href: '/blog/single',
+        href: '/blog/example-post',
       },
     ],
+    // label: 'Blogs',
+    // href: '/blog',
   },
   {
     title: 'Pages',

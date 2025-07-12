@@ -1,5 +1,5 @@
 import { AboutSectionProps } from '@/src/sections/about/v1';
-import { FaBrain, FaChartLine, FaCloud, FaCode } from 'react-icons/fa6';
+import { FaBrain, FaChartLine, FaCloud, FaCode, FaMobile } from 'react-icons/fa6';
 function Icon1() {
   return (
     <svg
@@ -80,7 +80,11 @@ export const aboutSectionData: AboutSectionProps = {
     {
       icon: <FaCode size={24} />,
       title: 'Web & API Development',
-    }
+    },
+    {
+      icon: <FaMobile size={24} />,
+      title: 'Mobile App Development',
+    },
   ],
   description:
     '',

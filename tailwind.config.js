@@ -96,6 +96,18 @@ module.exports = {
         3: '0px 4px 25px 0px rgba(0, 0, 0, 0.06)',
       },
       keyframes: {
+        'text-gradient': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        'pulse-glow': {
+          '0%, 100%': { textShadow: '0 0 8px rgba(7, 121, 211, 0.6)' },
+          '50%': { textShadow: '0 0 16px rgba(7, 121, 211, 0.8)' },
+        },
+        'gradient-x': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
         'accordion-down': {
           from: { height: 0 },
           to: { height: 'var(--radix-accordion-content-height)' },
@@ -172,6 +184,9 @@ module.exports = {
         },
       },
       animation: {
+        'text-gradient': 'text-gradient 4s ease infinite',
+        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+        'gradient-x': 'gradient-x 3s ease infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         fadeInDown: 'fadeInDown 1s both 0s',

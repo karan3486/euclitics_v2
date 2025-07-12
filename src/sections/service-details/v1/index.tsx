@@ -1,4 +1,6 @@
-import { LinkProps, blurDataUrl } from '@/src/common-types';
+"use client";
+
+import { blurDataUrl } from '@/src/common-types';
 import { Button } from '@/src/components/button';
 import { Container } from '@/src/components/container';
 import { CustomLink } from '@/src/components/custom-link';
@@ -6,53 +8,156 @@ import { TextInput } from '@/src/components/inputs/text-input';
 import { cn } from '@/src/utils/shadcn';
 import Image from 'next/image';
 import { FaCircleCheck, FaPhone } from 'react-icons/fa6';
+import { FaSearch } from 'react-icons/fa';
+// No longer need useParams as we'll get slug from props
+import { serviceDetailSidebar } from '@/data/services-detail/sidebar';
+import { useEffect, useState, useRef } from 'react';
+import { ServiceDetailProps } from '@/data/services-detail/types';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-const services: LinkProps[] = [
-  {
-    label: 'Smart Retail Optimization',
-    href: '/',
-  },
-  {
-    label: 'Predictive Healthcare Systems',
-    href: '/',
-  },
-  {
-    label: 'Financial Fraud Detection',
-    href: '/',
-  },
-  {
-    label: 'AI-Powered HR & Recruitment',
-    href: '/',
-  },
-  {
-    label: 'Customer Service Automation',
-    href: '/',
-  },
-  {
-    label: 'EdTech Personalization',
-    href: '/',
-  },
+// Default service data for fallback
+const defaultServiceSlug = 'ai-strategy-consulting';
+
+// List of all available services for search
+const availableServices = [
+  { slug: 'ai-strategy-consulting', title: 'AI Strategy & Consulting' },
+  { slug: 'website-development', title: 'Website Development' },
+  { slug: 'cloud-integration-devops', title: 'Cloud Integration & DevOps' },
+  { slug: 'data-analytics-visualization', title: 'Data Analytics & Visualization' },
+  { slug: 'generative-ai-machine-learning', title: 'Generative AI & Machine Learning' },
+  { slug: 'mobile-app-development', title: 'Mobile App Development' },
+  { slug: 'salesforce-crm-solutions', title: 'Salesforce CRM Solutions' },
+  { slug: 'search-engine-optimization', title: 'Search Engine Optimization' },
 ];
 
-export function ServiceDetailsSection() {
+// Fuzzy search function to match services
+const fuzzySearch = (query: string, services: { slug: string; title: string }[]) => {
+  if (!query) return [];
+  
+  const lowerQuery = query.toLowerCase();
+  return services.filter(service => {
+    return service.title.toLowerCase().includes(lowerQuery) || 
+           service.slug.toLowerCase().replace(/-/g, ' ').includes(lowerQuery);
+  });
+};
+
+interface ServiceDetailsSectionProps {
+  slug?: string;
+}
+
+export function ServiceDetailsSection({ slug }: ServiceDetailsSectionProps) {
+  const [serviceData, setServiceData] = useState<ServiceDetailProps | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<typeof availableServices>([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  
+  // Handle search input changes
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    
+    if (query.trim() === '') {
+      setSearchResults([]);
+      setShowDropdown(false);
+    } else {
+      const results = fuzzySearch(query, availableServices);
+      setSearchResults(results);
+      setShowDropdown(true);
+    }
+  };
+
+  // Handle search button click
+  const handleSearch = () => {
+    if (searchQuery.trim() === '') return;
+    
+    const results = fuzzySearch(searchQuery, availableServices);
+    if (results.length > 0) {
+      // Navigate to the first result
+      router.push(`/services/${results[0].slug}`);
+    }
+  };
+
+  // Handle service selection from dropdown
+  const handleServiceSelect = (serviceSlug: string) => {
+    router.push(`/services/${serviceSlug}`);
+    setSearchQuery('');
+    setShowDropdown(false);
+  };
+
+  // Handle click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const loadServiceData = async () => {
+      setIsLoading(true);
+      try {
+        // Get the slug from props or use default
+        const serviceSlug = slug || defaultServiceSlug;
+        
+        // Dynamically import the service data based on the slug
+        const serviceModule = await import(`@/data/services-detail/${serviceSlug}.ts`);
+        setServiceData(serviceModule.serviceDetail);
+      } catch (error) {
+        console.error('Error loading service data:', error);
+        // Load default service data as fallback
+        const defaultModule = await import(`@/data/services-detail/${defaultServiceSlug}.ts`);
+        setServiceData(defaultModule.serviceDetail);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadServiceData();
+  }, [slug]);
+
+  if (isLoading || !serviceData) {
+    return (
+      <section className="section-padding-primary">
+        <Container>
+          <div className="grid place-items-center py-20">
+            <p>Loading service details...</p>
+          </div>
+        </Container>
+      </section>
+    );
+  }
+
   return (
     <section className="section-padding-primary">
       <Container>
         <div className="grid items-start gap-10 md:grid-cols-[390px_1fr] 2xl:gap-[50px]">
-          {/* Sidebar  */}
-          <div className="grid gap-10 md:sticky md:top-[76px] lg:top-[133px] 2xl:gap-[60px]">
+          {/* Sidebar - Hidden on mobile, shown on desktop */}
+          <div className="hidden md:grid gap-10 md:sticky md:top-[76px] lg:top-[133px] 2xl:gap-[60px]">
             {/* Service list  */}
             <div className="grid gap-6 rounded-5 bg-accent-100 px-10 py-30px dark:bg-accent-700">
               <h3 className="h3 text-accent-700 dark:text-white">
                 Our Service
               </h3>
-              {services && services.length > 0 && (
+              {serviceDetailSidebar.services && serviceDetailSidebar.services.length > 0 && (
                 <ul className="grid gap-3" aria-label="service list">
-                  {services.map((service, index) => (
+                  {serviceDetailSidebar.services.map((service, index) => (
                     <li key={index}>
                       <CustomLink
                         href={service.href}
-                        className="flex items-center justify-between gap-4 transition-colors duration-300 hover:text-primary"
+                        className={cn(
+                          "flex items-center justify-between gap-4 transition-colors duration-300 hover:text-primary",
+                          service.href.includes(serviceData.slug) && "text-primary"
+                        )}
                       >
                         <span className="flex-1">{service.label}</span>
                         <svg
@@ -105,11 +210,18 @@ export function ServiceDetailsSection() {
                 </span>
                 <p className="mb-1 mt-6">Need help? contact our experts</p>
                 <a
-                  className="font-secondary text-md font-bold  transition-colors duration-300"
-                  href="tel:+0032-1255-69874"
+                  className="font-secondary text-md font-bold transition-colors duration-300"
+                  href={`tel:${serviceDetailSidebar.phoneNumber}`}
                 >
-                  +0032-1255-69874
+                  {serviceDetailSidebar.phoneNumber}
                 </a>
+                <p className="mt-3 mb-2">Or</p>
+                <Button asChild className={cn('!min-h-[45px] rounded-5')}>
+                                  <CustomLink href="/contact">
+                                    <span className="relative z-1">Contact Us</span>
+                                    
+                                  </CustomLink>
+            </Button>
               </div>
             </div>
 
@@ -119,15 +231,55 @@ export function ServiceDetailsSection() {
                 Search Service
               </h3>
               <span className="mb-7 mt-6 block h-0.5 w-[45px] bg-primary"></span>
-              <div className="flex items-center gap-4">
-                <TextInput
-                  name="sarch"
-                  placeholder="Search..."
-                  className="!min-h-[40px] !py-0"
-                />
-                <Button className={cn('!min-h-[40px]')}>
-                  <span className="relative z-1">SEARCH</span>
-                </Button>
+              <div className="relative" ref={searchRef}>
+                <div className="flex items-center gap-4">
+                  <TextInput
+                    name="search"
+                    placeholder="Search services..."
+                    className="!min-h-[40px] !py-0"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                  />
+                  <Button 
+                    className={cn('!min-h-[40px]')}
+                    onClick={handleSearch}
+                  >
+                    <span className="relative z-1 flex items-center gap-2">
+                      <FaSearch size={14} />
+                      <span>SEARCH</span>
+                    </span>
+                  </Button>
+                </div>
+                
+                {/* Dropdown results */}
+                {showDropdown && (
+                  <div className="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg dark:bg-accent-900 border border-accent-200 dark:border-accent-800 max-h-60 overflow-auto">
+                    {searchResults.length > 0 ? (
+                      <ul className="py-1">
+                        {searchResults.map((service) => (
+                          <li 
+                            key={service.slug}
+                            className="px-4 py-2 hover:bg-accent-100 dark:hover:bg-accent-800 cursor-pointer text-accent-700 dark:text-white"
+                            onClick={() => handleServiceSelect(service.slug)}
+                          >
+                            {service.title}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="p-4 text-center">
+                        <p className="text-accent-700 dark:text-white mb-2">No services found</p>
+                        <Link 
+                          href="/contact" 
+                          className="text-primary hover:underline inline-block"
+                        >
+                          Contact us for custom solutions
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -135,8 +287,7 @@ export function ServiceDetailsSection() {
             <div className="grid gap-30px">
               <div className="relative z-1 bg-accent-100 p-10 dark:bg-accent-700">
                 <p>
-                  We help businesses evolve through intelligent transformation—offering expert AI
-                  guidance every step of the way, with clarity, confidence, and measurable results.
+                  {serviceData.testimonial}
                 </p>
                 <span className="absolute bottom-5 right-5 -z-1">
                   <svg
@@ -152,21 +303,26 @@ export function ServiceDetailsSection() {
                     />
                   </svg>
                 </span>
+                <p className='mt-5 text-sm italic font-bold'>{serviceData.teamMember.role}</p>
               </div>
               <div className="flex items-center gap-5">
-                <Image
-                  src={'/assets/images/service-details/person-3.png'}
-                  width={66}
-                  height={66}
-                  alt="Darliana shimp image"
-                  className="flex-none"
-                />
-                <div>
-                  <h3 className="h3 text-accent-700 dark:text-white">
-                    Karan Shrestha
-                  </h3>
-                  <p>CEO and AI Expert</p>
-                </div>
+                {serviceData.teamMember && (
+                  <>
+                    {/* <Image
+                      src={serviceData.teamMember.image.src}
+                      width={66}
+                      height={66}
+                      alt={serviceData.teamMember.image.alt || serviceData.teamMember.name}
+                      className="flex-none"
+                    /> */}
+                    <div>
+                      {/* <h3 className="h3 text-accent-700 dark:text-white">
+                        {serviceData.teamMember.name}
+                      </h3> */}
+                      {/* <p>{serviceData.teamMember.role}</p> */}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -175,8 +331,8 @@ export function ServiceDetailsSection() {
           <div className="grid gap-6">
             <div className="relative mb-5 overflow-hidden rounded-5">
               <Image
-                src={'/assets/images/service-details/main-image-1.png'}
-                alt="service image main"
+                src={serviceData.mainImage.src}
+                alt={serviceData.mainImage.alt}
                 width={850}
                 height={512}
               />
@@ -198,104 +354,189 @@ export function ServiceDetailsSection() {
                 </svg>
               </span>
             </div>
-            <p>
-              We help you define your AI strategy and implement it effectively,
-              ensuring you stay ahead of the curve in the digital landscape.
-              Whether you're just starting or scaling your AI adoption, our
-              team provides end-to-end support—from business case development to
-              deployment.
-            </p>
-            <p>
-              Our consulting approach ensures alignment between your AI initiatives
-              and your long-term business vision. By combining data-driven insights,
-              advanced machine learning, and ethical AI practices, we empower your
-              teams to drive real transformation.
-            </p>
-            <div className="my-10 grid items-center gap-8 md:grid-cols-2">
-              <Image
-                src="/assets/images/service-details/image-2.png"
-                alt="service image 2"
-                width={640}
-                height={426}
-                className="rounded-5"
-              />
-              <div className="grid gap-4">
-                <div className="grid gap-3">
-                  <div className="flex items-center gap-4">
-                    <span className="flex-none text-base/[1] text-primary">
-                      <FaCircleCheck />
-                    </span>
-                    <h3 className="flex-1 text-md font-bold text-accent-700 dark:text-white">
-                      Data to Decisions
-                    </h3>
+            {serviceData.description && serviceData.description.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+            <div className="my-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {serviceData.features && serviceData.features.map((feature, index) => (
+                  <div className="grid gap-3" key={index}>
+                    <div className="flex items-center gap-4">
+                      <span className="flex-none text-base/[1] text-primary">
+                        <FaCircleCheck />
+                      </span>
+                      <h3 className="flex-1 text-md font-bold text-accent-700 dark:text-white">
+                        {feature.title}
+                      </h3>
+                    </div>
+                    <p>{feature.description}</p>
                   </div>
-                  <p>
-                    We translate your raw data into actionable intelligence with the help of custom
-                    AI frameworks and strategic models.
-                  </p>
-                </div>
-                <div className="grid gap-3">
-                  <div className="flex items-center gap-4">
-                    <span className="flex-none text-base/[1] text-primary">
-                      <FaCircleCheck />
-                    </span>
-                    <h3 className="flex-1 text-md font-bold text-accent-700 dark:text-white">
-                      End-to-End AI Implementation
-                    </h3>
-                  </div>
-                  <p>
-                    From defining use cases to productionizing models, we deliver practical,
-                    scalable AI solutions tailored to your business.
-                  </p>
-                </div>
+                ))}
               </div>
             </div>
 
-            <p>
-              Our team works closely with stakeholders to assess existing capabilities,
-              identify growth areas, and implement AI tools that enhance productivity,
-              customer experience, and innovation. With ongoing monitoring and optimization,
-              we ensure your AI systems continue to perform long after deployment.
-            </p>
 
-            <div className="mt-2.5 grid grid-cols-[1fr_260px] gap-6">
+
+            <div className="mt-2.5 flex flex-col-reverse md:grid md:grid-cols-[1fr_260px] gap-6">
               <div className="grid items-baseline gap-6 lg:gap-9">
-                <div>
-                  <h3 className="text-md font-bold text-accent-700 dark:text-white">
-                    Best Emplementation
-                  </h3>
-                  <p>
-                    Our structured roadmap ensures rapid integration of AI tools with minimal
-                    disruption—making your business smarter and future-ready.
-                  </p>
+                {serviceData.implementations && serviceData.implementations.map((implementation, index) => (
+                  <div key={index}>
+                    <h3 className="text-md font-bold relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 via-cyan-400 to-blue-600 animate-pulse-glow bg-[length:200%_auto] animate-text-gradient">
+                      {implementation.title}
+                    </h3>
+                    <p>{implementation.description}</p>
+                  </div>
+                ))}
+              </div>
+              {serviceData.tertiaryImage && (
+                <Image
+                  src={serviceData.tertiaryImage.src}
+                  alt={serviceData.tertiaryImage.alt || "service implementation image"}
+                  width={640}
+                  height={870}
+                  className="rounded-5"
+                />
+              )}
+            </div>
+          </div>
+          
+          {/* Mobile-only sidebar sections - shown at the bottom on mobile, hidden on desktop */}
+          <div className="grid gap-10 mt-10 md:hidden">
+            {/* Cta box  */}
+            <div
+              className={cn(
+                'relative grid  min-h-[410px] place-items-center overflow-hidden rounded-5 bg-accent-100 p-10 dark:bg-accent-700',
+                // after
+                'after:absolute after:inset-0 after:z-1 after:bg-accent-700/95',
+                // after
+                'before:absolute before:inset-0 before:z-[2] before:[background:linear-gradient(180deg,rgba(185,18,2,0.00)_0%,rgba(185,18,2,0.22)_100%)]'
+              )}
+            >
+              <Image
+                src="/assets/images/project-details/sidebar-phone-number-box-bg.jpg"
+                alt="sidebar-phone-number-box-bg"
+                fill
+                placeholder="blur"
+                blurDataURL={blurDataUrl}
+              />
+              <div className="relative z-10 text-center text-white">
+                <span className="inline-grid h-[68px] w-[68px] place-items-center rounded-full bg-primary text-lg/[1] text-white">
+                  <FaPhone />
+                </span>
+                <p className="mb-1 mt-6">Need help? contact our experts</p>
+                <a
+                  className="font-secondary text-md font-bold transition-colors duration-300"
+                  href={`tel:${serviceDetailSidebar.phoneNumber}`}
+                >
+                  {serviceDetailSidebar.phoneNumber}
+                </a>
+                <p className="mt-3 mb-2">Or</p>
+                <Button asChild className={cn('!min-h-[45px] rounded-5')}>
+                  <CustomLink href="/contact">
+                    <span className="relative z-1">Contact Us</span>
+                  </CustomLink>
+                </Button>
+              </div>
+            </div>
+
+            {/* Search box  */}
+            <div className="bg-accent-100 p-10 dark:bg-accent-700">
+              <h3 className="h3 text-accent-700 dark:text-white">
+                Search Service
+              </h3>
+              <span className="mb-7 mt-6 block h-0.5 w-[45px] bg-primary"></span>
+              <div className="relative" ref={searchRef}>
+                <div className="flex items-center gap-4">
+                  <TextInput
+                    name="search"
+                    placeholder="Search services..."
+                    className="!min-h-[40px] !py-0"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                  />
+                  <Button 
+                    className={cn('!min-h-[40px]')}
+                    onClick={handleSearch}
+                  >
+                    <span className="relative z-1 flex items-center gap-2">
+                      <FaSearch size={14} />
+                      <span>SEARCH</span>
+                    </span>
+                  </Button>
                 </div>
-                <div>
-                  <h3 className="text-md font-bold text-accent-700 dark:text-white">
-                    Design make for you.
-                  </h3>
+                
+                {/* Dropdown results */}
+                {showDropdown && (
+                  <div className="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg dark:bg-accent-900 border border-accent-200 dark:border-accent-800 max-h-60 overflow-auto">
+                    {searchResults.length > 0 ? (
+                      <ul className="py-1">
+                        {searchResults.map((service) => (
+                          <li 
+                            key={service.slug}
+                            className="px-4 py-2 hover:bg-accent-100 dark:hover:bg-accent-800 cursor-pointer text-accent-700 dark:text-white"
+                            onClick={() => handleServiceSelect(service.slug)}
+                          >
+                            {service.title}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="p-4 text-center">
+                        <p className="text-accent-700 dark:text-white mb-2">No services found</p>
+                        <Link 
+                          href="/contact" 
+                          className="text-primary hover:underline inline-block"
+                        >
+                          Contact us for custom solutions
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Team Member */}
+            {serviceData.teamMember && (
+              <div className="grid gap-30px">
+                <div className="relative z-1 bg-accent-100 p-10 dark:bg-accent-700">
                   <p>
-                    We customize every AI solution to your exact needs, making sure it integrates
-                    smoothly with your data and operations.
+                    {serviceData.testimonial}
                   </p>
+                  <span className="absolute bottom-5 right-5 -z-1">
+                    <svg
+                      width="115"
+                      height="82"
+                      viewBox="0 0 115 82"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M98.6016 49.1471L99.6016 49.1471L99.6016 48.1471L98.6016 48.1471L98.6016 49.1471ZM33.237 49.1471L34.237 49.1471L34.237 48.1471L33.237 48.1471L33.237 49.1471ZM113.943 51.1898C113.943 67.7392 100.608 80.8294 84.3031 80.8294L84.3031 82.8294C101.702 82.8294 115.943 68.8546 115.943 51.1898L113.943 51.1898ZM84.3031 80.8294L82.2604 80.8294L82.2604 82.8294L84.3031 82.8294L84.3031 80.8294ZM82.2604 80.8294C78.2167 80.8294 75.0898 77.7025 75.0898 73.6589L73.0898 73.6589C73.0898 78.8071 77.1122 82.8294 82.2604 82.8294L82.2604 80.8294ZM75.0898 73.6589C75.0898 69.8501 78.2369 66.4883 82.2604 66.4883L82.2604 64.4883C77.092 64.4883 73.0898 68.7863 73.0898 73.6589L75.0898 73.6589ZM82.2604 66.4883L84.3031 66.4883L84.3031 64.4883L82.2604 64.4883L82.2604 66.4883ZM84.3031 66.4883C92.5037 66.4883 99.6016 59.6688 99.6016 51.1898L97.6016 51.1898C97.6016 58.5412 91.4223 64.4883 84.3031 64.4883L84.3031 66.4883ZM99.6016 51.1898L99.6016 49.1471L97.6016 49.1471L97.6016 51.1898L99.6016 51.1898ZM98.6016 48.1471L82.2604 48.1471L82.2604 50.1471L98.6016 50.1471L98.6016 48.1471ZM82.2604 48.1471C73.6208 48.1471 66.9193 41.4456 66.9193 32.806L64.9193 32.806C64.9193 42.5502 72.5162 50.1471 82.2604 50.1471L82.2604 48.1471ZM66.9193 32.806L66.9193 16.4648L64.9193 16.4648L64.9193 32.806L66.9193 32.806ZM66.9193 16.4648C66.9193 8.07034 73.631 1.1237 82.2604 1.1237L82.2604 -0.876302C72.5061 -0.876303 64.9193 6.98621 64.9193 16.4648L66.9193 16.4648ZM82.2604 1.1237L98.6016 1.1237L98.6016 -0.876299L82.2604 -0.876302L82.2604 1.1237ZM98.6016 1.1237C106.986 1.1237 113.943 8.08057 113.943 16.4649L115.943 16.4649C115.943 6.976 108.09 -0.876297 98.6016 -0.876299L98.6016 1.1237ZM113.943 16.4649L113.943 24.6354L115.943 24.6354L115.943 16.4649L113.943 16.4649ZM113.943 24.6354L113.943 32.806L115.943 32.806L115.943 24.6354L113.943 24.6354ZM113.943 32.806L113.943 51.1898L115.943 51.1898L115.943 32.806L113.943 32.806ZM48.5781 51.1898C48.5781 67.7392 35.2434 80.8294 18.9385 80.8294L18.9385 82.8294C36.3371 82.8294 50.5781 68.8546 50.5781 51.1898L48.5781 51.1898ZM18.9385 80.8294L16.8958 80.8294L16.8958 82.8294L18.9385 82.8294L18.9385 80.8294ZM16.8958 80.8294C12.8522 80.8294 9.72524 77.7025 9.72524 73.6589L7.72524 73.6589C7.72524 78.8071 11.7476 82.8294 16.8958 82.8294L16.8958 80.8294ZM9.72524 73.6589C9.72525 69.8501 12.8723 66.4883 16.8958 66.4883L16.8958 64.4883C11.7274 64.4883 7.72525 68.7863 7.72524 73.6589L9.72524 73.6589ZM16.8958 66.4883L18.9385 66.4883L18.9385 64.4883L16.8958 64.4883L16.8958 66.4883ZM18.9385 66.4883C27.1391 66.4883 34.237 59.6688 34.237 51.1898L32.237 51.1898C32.237 58.5412 26.0577 64.4883 18.9385 64.4883L18.9385 66.4883ZM34.237 51.1898L34.237 49.1471L32.237 49.1471L32.237 51.1898L34.237 51.1898ZM33.237 48.1471L16.8958 48.1471L16.8958 50.1471L33.237 50.1471L33.237 48.1471ZM16.8958 48.1471C8.25621 48.1471 1.55468 41.4456 1.55468 32.806L-0.445323 32.806C-0.445324 42.5502 7.15164 50.1471 16.8958 50.1471L16.8958 48.1471ZM1.55468 32.806L1.55468 16.4648L-0.44532 16.4648L-0.445323 32.806L1.55468 32.806ZM1.55468 16.4648C1.55468 8.07033 8.26638 1.12369 16.8958 1.12369L16.8958 -0.876313C7.14149 -0.876315 -0.445318 6.9862 -0.44532 16.4648L1.55468 16.4648ZM16.8958 1.12369L33.237 1.12369L33.237 -0.87631L16.8958 -0.876313L16.8958 1.12369ZM33.237 1.12369C41.6213 1.12369 48.5781 8.08056 48.5781 16.4648L50.5781 16.4648C50.5781 6.97599 42.7258 -0.876309 33.237 -0.87631L33.237 1.12369ZM48.5781 16.4648L48.5781 24.6354L50.5781 24.6354L50.5781 16.4648L48.5781 16.4648ZM48.5781 24.6354L48.5781 32.806L50.5781 32.806L50.5781 24.6354L48.5781 24.6354ZM48.5781 32.806L48.5781 51.1898L50.5781 51.1898L50.5781 32.806L48.5781 32.806Z"
+                        className="fill-accent-700 opacity-20 dark:fill-white"
+                      />
+                    </svg>
+                  </span>
+                  <p className="mt-5 text-sm italic font-bold">{serviceData.teamMember.role}</p>
                 </div>
-                <div>
-                  <h3 className="text-md font-bold text-accent-700 dark:text-white">
-                    Finished the process
-                  </h3>
-                  <p>
-                    Once deployed, we don’t walk away. We train your team, monitor the models,
-                    and help you scale responsibly over time.
-                  </p>
+                <div className="flex items-center gap-5">
+                  {/* <Image
+                    src={serviceData.teamMember.image.src}
+                    width={66}
+                    height={66}
+                    alt={serviceData.teamMember.image.alt || serviceData.teamMember.name}
+                    className="flex-none"
+                  /> */}
+                  <div>
+                    {/* <h3 className="h3 text-accent-700 dark:text-white">
+                      {serviceData.teamMember.name}
+                    </h3> */}
+                    {/* <p className="text-sm italic">{serviceData.teamMember.role}</p> */}
+                  </div>
                 </div>
               </div>
-              <Image
-                src="/assets/images/service-details/image-3.png"
-                alt="service image 2"
-                width={640}
-                height={870}
-                className="rounded-5"
-              />
-            </div>
+            )}
           </div>
         </div>
       </Container>
