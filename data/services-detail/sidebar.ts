@@ -34,6 +34,10 @@ export const serviceDetailSidebar: ServiceDetailSidebarProps = {
       label: 'Search Engine Optimization',
       href: '/services/search-engine-optimization',
     },
+    {
+      label: 'API Development',
+      href: '/services/api-development',
+    },
   ],
   phoneNumber: '+1 (747) 295-9996',
 };

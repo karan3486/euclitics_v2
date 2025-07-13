@@ -1,4 +1,5 @@
 import { AboutSectionProps } from '@/src/sections/about/v1';
+import { FaSearch } from 'react-icons/fa';
 import { FaBrain, FaChartLine, FaCloud, FaCode, FaMobile } from 'react-icons/fa6';
 function Icon1() {
   return (
@@ -84,6 +85,10 @@ export const aboutSectionData: AboutSectionProps = {
     {
       icon: <FaMobile size={24} />,
       title: 'Mobile App Development',
+    },
+    {
+      icon: <FaSearch size={24} />,
+      title: 'Search Engine Optimization',
     },
   ],
   description:

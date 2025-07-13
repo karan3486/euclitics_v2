@@ -1,180 +1,24 @@
 import { TeamSectionProps } from '@/src/sections/team/v2';
-import {
-  FaFacebookF,
-  FaLinkedinIn,
-  FaPinterest,
-  FaTwitter,
-} from 'react-icons/fa6';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaPinterest } from 'react-icons/fa';
 
 export const teamSectionData: TeamSectionProps = {
   sectionHeading: {
-    subtitle: 'our active members',
-    title: 'Your Gateway to Smart Innovation',
+    subtitle: 'Meet Our Team',
+    title: 'Transforming Challenges into Seamless Solutions',
   },
-  description:
-    'With a commitment to driving technological evolution, our IT solutions and services are the cornerstone of your digital progression. We transcend boundaries, enabling businesses to not only adapt but thrive in dynamic landscapes. ',
-  cards: [
-    {
-      slug: '#',
-      image: {
-        src: '/assets/images/team/people-4.png',
-        alt: 'Leslie Alexander',
-      },
-      socials: [
-        {
-          href: 'https://www.facebook.com/',
-          icon: <FaFacebookF />,
-        },
-        {
-          href: 'https://twitter.com/',
-          icon: <FaTwitter />,
-        },
-        {
-          href: 'https://www.linkedin.com/',
-          icon: <FaLinkedinIn />,
-        },
-        {
-          href: 'https://www.pinterest.com/',
-          icon: <FaPinterest />,
-        },
-      ],
-      name: 'Leslie Alexander',
-      about: 'Medical Assistant',
+  description: 'At the heart of our company is a passionate team of technologists, designers, strategists, and engineers committed to turning bold ideas into powerful digital experiences. With deep expertise across a wide spectrum of modern technologies, our team brings together AI and machine learning specialists, cloud & DevOps architects, mobile and web developers, data analysts, SEO strategists, and Salesforce CRM experts — all under one roof.',
+  additionalContent: {
+    mainImage: {
+      src: '/assets/images/team/main.png',
+      alt: 'Our Team',
     },
-    {
-      slug: '#',
-      image: {
-        src: '/assets/images/team/people-4.png',
-        alt: 'Wade Warren',
-      },
-      socials: [
-        {
-          href: 'https://www.facebook.com/',
-          icon: <FaFacebookF />,
-        },
-        {
-          href: 'https://twitter.com/',
-          icon: <FaTwitter />,
-        },
-        {
-          href: 'https://www.linkedin.com/',
-          icon: <FaLinkedinIn />,
-        },
-        {
-          href: 'https://www.pinterest.com/',
-          icon: <FaPinterest />,
-        },
-      ],
-      name: 'Wade Warren',
-      about: 'Marketing Coordinator',
-    },
-    {
-      slug: '#',
-      image: {
-        src: '/assets/images/team/people-4.png',
-        alt: 'Esther Howard',
-      },
-      socials: [
-        {
-          href: 'https://www.facebook.com/',
-          icon: <FaFacebookF />,
-        },
-        {
-          href: 'https://twitter.com/',
-          icon: <FaTwitter />,
-        },
-        {
-          href: 'https://www.linkedin.com/',
-          icon: <FaLinkedinIn />,
-        },
-        {
-          href: 'https://www.pinterest.com/',
-          icon: <FaPinterest />,
-        },
-      ],
-      name: 'Esther Howard',
-      about: 'Web Designer',
-    },
-    {
-      slug: '#',
-      image: {
-        src: '/assets/images/team/people-4.png',
-        alt: 'Leslie Alexander',
-      },
-      socials: [
-        {
-          href: 'https://www.facebook.com/',
-          icon: <FaFacebookF />,
-        },
-        {
-          href: 'https://twitter.com/',
-          icon: <FaTwitter />,
-        },
-        {
-          href: 'https://www.linkedin.com/',
-          icon: <FaLinkedinIn />,
-        },
-        {
-          href: 'https://www.pinterest.com/',
-          icon: <FaPinterest />,
-        },
-      ],
-      name: 'Leslie Alexander',
-      about: 'Medical Assistant',
-    },
-    {
-      slug: '#',
-      image: {
-        src: '/assets/images/team/people-4.png',
-        alt: 'Wade Warren',
-      },
-      socials: [
-        {
-          href: 'https://www.facebook.com/',
-          icon: <FaFacebookF />,
-        },
-        {
-          href: 'https://twitter.com/',
-          icon: <FaTwitter />,
-        },
-        {
-          href: 'https://www.linkedin.com/',
-          icon: <FaLinkedinIn />,
-        },
-        {
-          href: 'https://www.pinterest.com/',
-          icon: <FaPinterest />,
-        },
-      ],
-      name: 'Wade Warren',
-      about: 'Marketing Coordinator',
-    },
-    {
-      slug: '#',
-      image: {
-        src: '/assets/images/team/people-4.png',
-        alt: 'Jenny Wilson',
-      },
-      socials: [
-        {
-          href: 'https://www.facebook.com/',
-          icon: <FaFacebookF />,
-        },
-        {
-          href: 'https://twitter.com/',
-          icon: <FaTwitter />,
-        },
-        {
-          href: 'https://www.linkedin.com/',
-          icon: <FaLinkedinIn />,
-        },
-        {
-          href: 'https://www.pinterest.com/',
-          icon: <FaPinterest />,
-        },
-      ],
-      name: 'Jenny Wilson',
-      about: 'Nursing Assistant',
-    },
-  ],
+    paragraphs: [
+      '🔹 Who We Are',
+      'We\'re a collective of forward-thinkers, problem-solvers, and innovators. Each team member brings their own blend of creativity and technical expertise, ensuring we deliver solutions that are not only functional — but future-ready. Whether you\'re looking to build a scalable application, harness the power of generative AI, or optimize your online presence, we have the talent and experience to bring your vision to life.',
+      '🔹 Our Promise',
+      'We don\'t just deliver projects. We build partnerships. Our team is here to collaborate, advise, build, and evolve with you — from MVP to enterprise-scale deployments.',
+      'Let\'s shape the future of digital experiences together.',
+    ]
+  },
+  cards: []
 };

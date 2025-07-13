@@ -11,11 +11,12 @@ export const aboutSectionData: AboutSectionProps = {
     'AI Strategy & Consulting',
     'Data Analytics & Visualization',
     'Salesforce CRM Solutions',
-    'Web & API Development',
+    'Website & Web App Development',
     'Cloud Integration & DevOps Pipelines',
     'Generative AI & Machine Learning',
     'Mobile App Development',
     'Search Engine Optimization',
+    'API Development',
   ],
   image: {
     src: '/assets/images/about/about-5.png',

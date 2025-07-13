@@ -90,6 +90,17 @@ function Icon8() {
   );
 }
 
+function Icon9() {
+  return (
+    <Image
+      src="/assets/images/service/service-icons/service-9.png"
+      alt="Service Icon"
+      width={65}
+      height={65}
+    />
+  );
+}
+
 export const serviceSectionData: ServiceSectionProps = {
   sectionHeading: {
     subtitle: 'Our Services',
@@ -122,7 +133,7 @@ export const serviceSectionData: ServiceSectionProps = {
     {
       image: {
         src: '/assets/images/service/service-3.png',
-        alt: 'Web & API Development',
+        alt: 'Data Analytics & Visualization',
       },
       icon: <Icon3 />,
       title: 'Website Development',
@@ -184,6 +195,17 @@ export const serviceSectionData: ServiceSectionProps = {
       description:
         'We provide search engine optimization services to help you improve your website\'s visibility and ranking in search engine results.',
       slug: '/services/search-engine-optimization',
+    },
+    {
+      image: {
+        src: '/assets/images/service/service-9.png',
+        alt: 'API Development',
+      },
+      icon: <Icon9 />,
+      title: 'API Development',
+      description:
+        'We provide API development services to help you create custom solutions for your business.',
+      slug: '/services/api-development',
     },
   ],
 };

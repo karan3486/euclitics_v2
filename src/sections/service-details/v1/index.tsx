@@ -29,6 +29,7 @@ const availableServices = [
   { slug: 'mobile-app-development', title: 'Mobile App Development' },
   { slug: 'salesforce-crm-solutions', title: 'Salesforce CRM Solutions' },
   { slug: 'search-engine-optimization', title: 'Search Engine Optimization' },
+  { slug: 'api-development', title: 'API Development' },
 ];
 
 // Fuzzy search function to match services
