@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Euclitics | Faq',
-  description: 'Euclitics - IT Solutions and Services React Nextjs Template',
+  description: 'Euclitics - IT Solutions and Services company',
 };
 
 export default function Page() {

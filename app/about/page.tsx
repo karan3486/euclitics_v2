@@ -13,7 +13,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Euclitics | About',
-  description: 'Euclitics - IT Solutions and Services React Nextjs Template',
+  description: 'Euclitics - IT Solutions and Services company',
 };
 
 export default function Page() {
