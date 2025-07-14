@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
       <div className="py-16 md:py-24">
         <Container>
           <div className="mx-auto max-w-4xl">
-            <h1 className="mb-8 text-3xl font-bold text-center md:text-4xl">Privacy Policy</h1>
+            <h1 className="mb-8 text-2xl font-bold text-center md:text-2xl">Privacy Policy</h1>
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <p className="text-lg text-accent-700 dark:text-accent-300">
                 Last Updated: July 13, 2025
