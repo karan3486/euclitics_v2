@@ -1,3 +1,5 @@
+'use client';
+
 import { Container } from '@/src/components/container';
 import { SectionHeading } from '@/src/components/section-heading';
 import { SectionHeadingWithoutStylingProps } from '@/src/components/section-heading/interface';
@@ -7,6 +9,8 @@ import { getStaggeredDelay } from '@/src/utils/set-staggered-delay';
 import { LinkProps } from '@/src/common-types';
 import { Button } from '@/src/components/button';
 import { CustomLink } from '@/src/components/custom-link';
+import { useEffect, useState } from 'react';
+import { BlogTitle, getAllBlogTitles } from '@/data/blog-section/posts-title';
 
 export interface BlogSectionProps {
   sectionHeading: Pick<SectionHeadingWithoutStylingProps, 'subtitle' | 'title'>;
@@ -15,7 +19,45 @@ export interface BlogSectionProps {
 }
 
 export function BlogSection() {
-  const { sectionHeading, blogs, ctaButton } = blogSectionData;
+  const { sectionHeading, ctaButton } = blogSectionData;
+  const [blogs, setBlogs] = useState<BlogProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        const response = await getAllBlogTitles(1, 3); // Fetch 3 blog titles for the section
+        debugger;
+        // Get API URL for prefixing image paths
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+        
+        // Transform the API response to match the BlogProps interface
+        const transformedBlogs: BlogProps[] = response.items.map((blog: BlogTitle) => ({
+          slug: `/blog/${blog.slug}`,
+          image: {
+            // Prefix image URL with API URL if it's a relative path
+            src: `${apiUrl}${blog.image.src}`,
+            alt: blog.image.alt
+          },
+          title: blog.title
+        }));
+        debugger;
+        setBlogs(transformedBlogs);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching blog titles:', err);
+        setError('Failed to load blog posts');
+        // Use fallback data if API fails
+        setBlogs(blogSectionData.blogs);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchBlogs();
+  }, []);
   return (
     <section className="section-padding-primary overflow-hidden">
       <Container>
@@ -36,7 +78,15 @@ export function BlogSection() {
             </Button>
           </div>
         </div>
-        {blogs && blogs.length > 0 && (
+        {loading ? (
+          <div className="flex justify-center py-10" data-aos="fade-up">
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          </div>
+        ) : error ? (
+          <div className="text-center py-10" data-aos="fade-up">
+            <p className="text-red-500">{error}</p>
+          </div>
+        ) : blogs && blogs.length > 0 ? (
           <div className="-mx-4 flex flex-wrap gap-y-30px">
             {blogs.map((blog, index) => (
               <div
@@ -48,6 +98,10 @@ export function BlogSection() {
                 <BlogCard {...blog} />
               </div>
             ))}
+          </div>
+        ) : (
+          <div className="text-center py-10" data-aos="fade-up">
+            <p>No blog posts available.</p>
           </div>
         )}
       </Container>

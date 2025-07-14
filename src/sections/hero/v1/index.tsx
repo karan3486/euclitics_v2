@@ -11,14 +11,14 @@ import { cn } from '@/src/utils/shadcn';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from './hero.module.css';
 import SwiperCore, { EffectFade } from 'swiper';
-import { Swiper as SwiperType, Navigation } from 'swiper';
+import { Swiper as SwiperType, Navigation, Autoplay } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/swiper-bundle.min.css';
 import { useRef } from 'react';
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
 
-SwiperCore.use([EffectFade, Navigation]);
+SwiperCore.use([EffectFade, Navigation, Autoplay]);
 
 const navigationButtonCommonClasses = cn(
   'w-[60px] relative z-40 h-[60px] grid place-items-center leading-none text-[1.25rem] bg-accent-900 hover:bg-primary transition-all duration-300 text-white rounded-full'
@@ -43,7 +43,10 @@ export function Hero() {
           effect="fade"
           loop
           speed={300}
-          autoplay={{ delay: 3000 }}
+          autoplay={{ 
+            delay: 4000,
+            disableOnInteraction: false
+          }}
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper;
           }}

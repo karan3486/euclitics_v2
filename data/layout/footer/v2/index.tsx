@@ -5,6 +5,7 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from 'react-icons/fa6';
+import { RecentBlogs } from '@/src/components/footer/recent-blogs';
 
 export const footerSectionData: FooterSectionProps = {
   socialLinks: [
@@ -44,8 +45,8 @@ export const footerSectionData: FooterSectionProps = {
         openNewTab: false,
       },
       {
-        label: 'Portfolio',
-        href: '/portfolio',
+        label: 'Projects',
+        href: '/projects',
         openNewTab: false,
       },
       {
@@ -59,28 +60,28 @@ export const footerSectionData: FooterSectionProps = {
     title: 'Service Links',
     links: [
       {
-        label: 'Cloud services',
-        href: '/',
+        label: 'AI Strategy & Consulting',
+        href: '/services/ai-strategy-consulting',
         openNewTab: false,
       },
       {
-        label: 'Backup solutions',
-        href: '/',
+        label: 'Data Analytics & Visualization',
+        href: '/services/data-analytics-visualization',
         openNewTab: false,
       },
       {
-        label: 'Network security',
-        href: '/',
+        label: 'Cloud Integration & DevOps',
+        href: '/services/cloud-integration-devops',
         openNewTab: false,
       },
       {
-        label: 'Monitoring',
-        href: '/',
+        label: 'Mobile App Development',
+        href: '/services/mobile-app-development',
         openNewTab: false,
       },
       {
-        label: 'IT Consulting',
-        href: '/',
+        label: 'Website Development',
+        href: '/services/website-development',
         openNewTab: false,
       },
     ],
@@ -88,44 +89,31 @@ export const footerSectionData: FooterSectionProps = {
 
   columnThree: {
     title: 'Recent Blog',
-    blogs: [
-      {
-        image: {
-          src: '/assets/images/blog/blog-sm-1.jpg',
-          alt: 'We provide a range of IT solutions',
-        },
-        title: 'We provide a range of IT solutions',
-        date: 'january 11, 2024',
-        slug: './blog-details',
-      },
-      {
-        image: {
-          src: '/assets/images/blog/blog-sm-2.jpg',
-          alt: 'IT solutions enhance efficiency',
-        },
-        title: 'IT solutions enhance efficiency',
-        date: 'january 11, 2024',
-        slug: './blog-details',
-      },
-    ],
+    // Using the dynamic RecentBlogs component instead of static data
+    blogComponent: <RecentBlogs />,
   },
   columnFour: {
     title: 'Contact Us',
-    phoneNumber: '+880 123 45 67 89',
-    mail: 'yourmail@gmail.com',
-    location: '1212, Lav Vegas, The Veg Street, USA',
+    phoneNumber: '+1 747 295-9996',
+    mail: 'info@euclitics.com',
+    location: 'Fremont, CA 94536, USA',
   },
   footerBottom: {
-    copyrightText: '© Yoursitename  2024 | All Rights Reserved',
+    copyrightText: '© Euclitics 2025 | All Rights Reserved',
     links: [
       {
-        label: 'Trams & Condition',
-        href: '/',
+        label: 'Terms & Condition',
+        href: '/terms-and-conditions',
         openNewTab: false,
       },
       {
         label: 'Privacy Policy',
-        href: '/',
+        href: '/privacy-policy',
+        openNewTab: false,
+      },
+      {
+        label: 'Careers',
+        href: '/careers',
         openNewTab: false,
       },
       {

@@ -17,6 +17,11 @@ interface RecentBlog {
   title: string;
 }
 
+type BlogContentType = {
+  blogs?: RecentBlog[];
+  blogComponent?: React.ReactNode;
+};
+
 interface SocialLinkProps {
   icon: React.ReactNode;
   href: string;
@@ -34,8 +39,7 @@ export interface FooterSectionProps {
   };
   columnThree: {
     title: string;
-    blogs: RecentBlog[];
-  };
+  } & BlogContentType;
   columnFour: {
     title: string;
     location: string;
@@ -167,7 +171,11 @@ export function Footer({ className, footerTopClassName }: Props) {
             {/* Column three  */}
             <div data-aos="fade-up" data-aos-delay="600">
               <h3 className={titleClasses}>{columnThree.title}</h3>
-              {columnThree.blogs && columnThree.blogs.length > 0 && (
+              {columnThree.blogComponent ? (
+                // Render the dynamic blog component if provided
+                columnThree.blogComponent
+              ) : columnThree.blogs && columnThree.blogs.length > 0 ? (
+                // Otherwise fall back to static blogs if available
                 <div className="grid gap-6">
                   {columnThree.blogs.map((blog, index) => (
                     <article
@@ -196,13 +204,13 @@ export function Footer({ className, footerTopClassName }: Props) {
                           <span className="text-primary">
                             <FaCalendarDays />
                           </span>
-                          <span>{blog.date}</span>
+                          {/* <span>{blog.date}</span> */}
                         </p>
                       </div>
                     </article>
                   ))}
                 </div>
-              )}
+              ) : null}
             </div>
 
             {/* Column Four  */}

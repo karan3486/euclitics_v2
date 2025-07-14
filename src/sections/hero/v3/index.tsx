@@ -1,9 +1,7 @@
 import { Container } from '@/src/components/container';
 import { CustomLink } from '@/src/components/custom-link';
 import { cn } from '@/src/utils/shadcn';
-import Image from 'next/image';
 import React from 'react';
-import bannerImage from 'public/assets/images/hero/hero-3.gif';
 
 interface BreadcrumbItem {
   href?: string;
@@ -18,15 +16,17 @@ export interface HeroSectionProps {
 export function HeroSection({ title, breadcrumbItems }: HeroSectionProps) {
   return (
     <section className="section-padding-primary relative flex min-h-[300px] items-center py-10">
-      {/* Background image  */}
-      <Image
-        priority
-        src={bannerImage.src}
-        alt={`${process.env.NEXT_PUBLIC_SITE_NAME} banner 3`}
-        fill
-        sizes="100vw"
-        className="pointer-events-none object-cover"
-      />
+      {/* Background video */}
+      <video 
+        autoPlay 
+        muted 
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/assets/images/hero/hero-3_b.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
       {/* Overlay  */}
       <span className="absolute inset-0 bg-gradient-1 from-white/0 to-white dark:from-accent-900/0 dark:to-accent-900"></span>

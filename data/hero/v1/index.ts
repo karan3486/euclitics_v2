@@ -7,10 +7,10 @@ export const heroData: HeroProps = {
         src: '/assets/images/hero/hero-1.jpg',
         alt: 'hero 1',
       },
-      title: 'Empowering Your Digital Future',
+      title: 'Empowering Your Tech Evolution',
       button: {
         label: 'Discover More',
-        href: '/',
+        href: '/services',
       },
     },
     {
@@ -21,7 +21,7 @@ export const heroData: HeroProps = {
       title: 'We Build. We Analyze. You Grow.',
       button: {
         label: 'Discover More',
-        href: '/',
+        href: '/services',
       },
     },
     {
@@ -32,7 +32,7 @@ export const heroData: HeroProps = {
       title: 'Empowering Your Vision Through Smart Tech.',
       button: {
         label: 'Discover More',
-        href: '/',
+        href: '/services',
       },
     },
   ],

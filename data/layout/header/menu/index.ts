@@ -77,45 +77,45 @@ export const menuItemsProps: HeaderProps['menuItems'] = [
     //     href: '/project/single',
     //   },
     // ],
-    label: 'Projects',
+    label: 'Portfolio',
     href: '/project',
   },
   {
-    title: 'Blog',
-    subMenuItems: [
-      {
-        label: 'Blog List',
-        href: '/blog',
-      },
-      {
-        label: 'Blog single',
-        href: '/blog/example-post',
-      },
-    ],
-    // label: 'Blogs',
-    // href: '/blog',
+    // title: 'Blog',
+    // subMenuItems: [
+    //   {
+    //     label: 'Blog List',
+    //     href: '/blog',
+    //   },
+    //   {
+    //     label: 'Blog single',
+    //     href: '/blog/example-post',
+    //   },
+    // ],
+    label: 'Blogs',
+    href: '/blog',
   },
-  {
-    title: 'Pages',
-    subMenuItems: [
-      {
-        label: 'Testimonial',
-        href: '/testimonial',
-      },
-      {
-        label: 'Team',
-        href: '/team',
-      },
-      {
-        label: 'Pricing',
-        href: '/pricing',
-      },
-      {
-        label: 'FAQ',
-        href: '/faq',
-      },
-    ],
-  },
+  // {
+  //   title: 'Pages',
+  //   subMenuItems: [
+  //     {
+  //       label: 'Testimonial',
+  //       href: '/testimonial',
+  //     },
+  //     {
+  //       label: 'Team',
+  //       href: '/team',
+  //     },
+  //     {
+  //       label: 'Pricing',
+  //       href: '/pricing',
+  //     },
+  //     {
+  //       label: 'FAQ',
+  //       href: '/faq',
+  //     },
+  //   ],
+  // },
   {
     label: 'Contact',
     href: '/contact',

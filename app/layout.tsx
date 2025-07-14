@@ -9,6 +9,7 @@ import { Toaster } from 'sonner';
 import { ThemeProvider } from '@/src/components/theme-provider';
 import { ModeToggle } from '@/src/components/mode-toggle';
 import { NavigationProvider } from '@/src/components/navigation-provider';
+import { ProjectDetailsProvider } from '@/src/components/project/project-details-provider';
 
 interface Props {
   children: React.ReactNode;
@@ -40,14 +41,16 @@ export default async function RootLayout({ children }: Props) {
           disableTransitionOnChange
         >
           <NavigationProvider>
-            <div
-              className={cn(
-                'bg-white text-accent-800 dark:bg-accent-900 dark:text-body'
-              )}
-            >
-              <main>{children}</main>
-              <ModeToggle />
-            </div>
+            <ProjectDetailsProvider>
+              <div
+                className={cn(
+                  'bg-white text-accent-800 dark:bg-accent-900 dark:text-body'
+                )}
+              >
+                <main>{children}</main>
+                <ModeToggle />
+              </div>
+            </ProjectDetailsProvider>
           </NavigationProvider>
         </ThemeProvider>
         <Toaster

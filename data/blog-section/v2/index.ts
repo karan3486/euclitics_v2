@@ -15,11 +15,6 @@ export const blogSectionData: BlogSectionProps = {
         src: '/assets/images/blog/blog-4.png',
         alt: 'blog-1',
       },
-      date: 'October 19, 2024',
-      author: {
-        name: 'Admin',
-        slug: '',
-      },
       slug: '/blog/advanced-encryption',
       title: 'We implement state-of-the-art encryption',
     },
@@ -28,11 +23,6 @@ export const blogSectionData: BlogSectionProps = {
         src: '/assets/images/blog/blog-5.png',
         alt: 'blog-2',
       },
-      date: 'October 19, 2024',
-      author: {
-        name: 'Admin',
-        slug: '',
-      },
       slug: '/blog/tailored-services',
       title: 'we tailor our services to meet your specific business',
     },
@@ -40,11 +30,6 @@ export const blogSectionData: BlogSectionProps = {
       image: {
         src: '/assets/images/blog/blog-6.png',
         alt: 'blog-3',
-      },
-      date: 'October 19, 2024',
-      author: {
-        name: 'Admin',
-        slug: '',
       },
       slug: '/blog/streamlined-processes',
       title: 'IT solutions enhance efficiency, streamline processes',
