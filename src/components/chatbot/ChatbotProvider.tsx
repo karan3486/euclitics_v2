@@ -47,7 +47,7 @@ export const ChatbotProvider: React.FC<ChatbotProviderProps> = ({
       // Check if this is an actual page load, not a hot module reload
       const isPageReload = !window.performance
         .getEntriesByType('navigation')
-        .map((nav: any) => nav.type)
+        .map((nav) => (nav as PerformanceNavigationTiming).type)
         .includes('reload');
 
       if (isPageReload) {

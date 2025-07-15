@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/src/components/ui/sheet';
-import { MessageSquare, X, Plus, Bot } from 'lucide-react';
+import { X, Plus, Bot } from 'lucide-react';
 import { useStickyHeader } from '@/src/layout/header/utils/use-sticky-header';
 import { cn } from '@/src/utils/shadcn';
+import Image from 'next/image';
 // Import from same directory
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
@@ -81,35 +82,8 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  // Start chat session when component mounts or when chatbot is opened
-  useEffect(() => {
-    if (isOpen && !sessionId) {
-      startChatSession();
-    }
-  }, [isOpen]);
-
-  // Clear chat session when page is reloaded
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      if (sessionId) {
-        // Clear session on server
-        clearChatSession(sessionId);
-        
-        // Clear local storage
-        localStorage.removeItem(SESSION_ID_KEY);
-        localStorage.removeItem(MESSAGES_KEY);
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [sessionId]);
-
   // Start a new chat session
-  const startChatSession = async () => {
+  const startChatSession = useCallback(async () => {
     setLoading(true);
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://eucliticsapi-8d00a0c4f606.herokuapp.com';
@@ -134,7 +108,7 @@ const Chatbot = () => {
       if (messages.length === 0) {
         setMessages([
           {
-            content: "Hi there! How can I assist you with Euclitics' IT services today?",
+            content: 'Hello! I am Euclitics AI assistant. How can I help you today?',
             isUser: false,
           },
         ]);
@@ -144,7 +118,36 @@ const Chatbot = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [messages.length]);
+
+  // Start chat session when component mounts or when chatbot is opened
+  useEffect(() => {
+    if (isOpen && !sessionId) {
+      startChatSession();
+    }
+  }, [isOpen, sessionId, startChatSession]);
+
+  // Clear chat session when page is reloaded
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (sessionId) {
+        // Clear session on server
+        clearChatSession(sessionId);
+        
+        // Clear local storage
+        localStorage.removeItem(SESSION_ID_KEY);
+        localStorage.removeItem(MESSAGES_KEY);
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [sessionId]);
+
+  // This function has been moved up with useCallback
 
   // Clear chat session
   const clearChatSession = async (id: string) => {
@@ -281,10 +284,12 @@ return (
             <div className="flex-1 overflow-y-auto p-4 space-y-4 relative">
               {/* Background Logo */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5 z-0">
-                <img 
+                <Image 
                   src="/assets/images/brand/linklogo.png" 
                   alt="Euclitics Logo" 
                   className="w-3/4 h-auto object-contain"
+                  width={300}
+                  height={300}
                 />
               </div>
               {messages.map((message, index) => (

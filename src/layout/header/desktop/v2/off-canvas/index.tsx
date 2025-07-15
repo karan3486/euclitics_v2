@@ -7,7 +7,6 @@ import {
 } from '@/src/components/ui/sheet';
 import { cn } from '@/src/utils/shadcn';
 import {
-  FaFacebookF,
   FaTwitter,
   FaInstagram,
   FaLinkedinIn,
