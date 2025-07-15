@@ -175,7 +175,7 @@ export function ProjectDetailsSlider({
       {/* Slider panel */}
       <div 
         className={cn(
-          "relative w-full md:w-1/2 bg-white dark:bg-accent-900 h-full overflow-hidden shadow-xl transition-transform duration-300 ease-in-out transform flex flex-col",
+          "relative w-full md:w-1/2 bg-white dark:bg-accent-900 h-full overflow-hidden shadow-xl transition-transform duration-300 ease-in-out transform flex flex-col pt-[60px] md:pt-0",
           animationState === 'initial' ? "translate-x-full" : 
           animationState === 'entering' || animationState === 'entered' ? "translate-x-0" : 
           "translate-x-full"
@@ -184,7 +184,7 @@ export function ProjectDetailsSlider({
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white backdrop-blur-lg transition-colors hover:bg-white/20"
+          className="absolute right-4 top-[70px] md:top-4 z-10 rounded-full bg-primary p-2 text-white shadow-md transition-colors hover:bg-primary/90"
         >
           <FaTimes className="h-5 w-5" />
         </button>

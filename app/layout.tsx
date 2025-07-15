@@ -10,6 +10,13 @@ import { ThemeProvider } from '@/src/components/theme-provider';
 import { ModeToggle } from '@/src/components/mode-toggle';
 import { NavigationProvider } from '@/src/components/navigation-provider';
 import { ProjectDetailsProvider } from '@/src/components/project/project-details-provider';
+import dynamic from 'next/dynamic';
+
+// Dynamically import ChatbotProvider with SSR disabled
+const ChatbotProvider = dynamic(
+  () => import('@/src/components/chatbot/ChatbotProvider'),
+  { ssr: false }
+);
 
 interface Props {
   children: React.ReactNode;
@@ -49,6 +56,7 @@ export default async function RootLayout({ children }: Props) {
               >
                 <main>{children}</main>
                 <ModeToggle />
+                <ChatbotProvider>{/* No children needed */}</ChatbotProvider>
               </div>
             </ProjectDetailsProvider>
           </NavigationProvider>

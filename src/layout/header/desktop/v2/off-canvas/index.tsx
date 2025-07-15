@@ -53,17 +53,17 @@ interface IOffCanvas {
 
 const offCanvasProps: IOffCanvas = {
   description:
-    'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
+    'Euclitics is a leading IT solutions and services company. We provide a wide range of services to help you achieve your business goals.',
   contactInfo: {
-    location: ' 88 broklyn street, New York',
-    phoneNumber: '+1 555-9990-153',
-    mail: 'info@example.com',
+    location: 'Fremont, CA, 94538, USA',
+    phoneNumber: '+1 747-295-9996',
+    mail: 'info@euclitics.com',
   },
   socialLinks: [
-    {
-      icon: <FaFacebookF />,
-      href: 'https://www.facebook.com/',
-    },
+    // {
+    //   icon: <FaFacebookF />,
+    //   href: 'https://www.facebook.com/',
+    // },
     {
       icon: <FaLinkedinIn />,
       href: 'https://www.linkedin.com/',
@@ -82,7 +82,7 @@ const offCanvasProps: IOffCanvas = {
 export function OffCanvas() {
   const { description, contactInfo, socialLinks } = offCanvasProps;
   return (
-    <Sheet>
+    <Sheet modal={false}>
       <SheetTrigger
         aria-controls="desktop-offcanvas-handler"
         className="text-[1.25rem]/[1] text-accent-900 transition-colors duration-300 hover:text-primary dark:text-white dark:hover:text-white"
@@ -115,7 +115,7 @@ export function OffCanvas() {
           viewportClassName={cn('h-[100vh]')}
           scrollBarClassName="w-0"
         >
-          <div className="grid gap-10 p-30px">
+          <div id="desktop-offcanvas-content" className="grid gap-10 p-30px">
             {/* Logo area  */}
             <div className="flex items-center justify-between">
               <BrandLogo />
