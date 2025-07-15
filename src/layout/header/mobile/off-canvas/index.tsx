@@ -1,3 +1,5 @@
+'use client';
+
 import { ScrollArea } from '@/src/components/ui/scroll-area';
 import {
   Sheet,
@@ -9,6 +11,7 @@ import { cn } from '@/src/utils/shadcn';
 import { FaEnvelope, FaPhone } from 'react-icons/fa6';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { CustomLink } from '@/src/components/custom-link';
+import { useState } from 'react';
 import { X } from 'lucide-react';
 import { HeaderProps } from '../../desktop/v1';
 import { Navigation } from '../navigation';
@@ -80,8 +83,9 @@ const offCanvasProps: IOffCanvas = {
 
 export function OffCanvas({ menuItems }: Pick<HeaderProps, 'menuItems'>) {
   const { contactInfo, socialLinks } = offCanvasProps;
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger
         aria-label="Mobile hamburger menu"
         aria-controls="mobile-hamburger-menu"
@@ -93,7 +97,8 @@ export function OffCanvas({ menuItems }: Pick<HeaderProps, 'menuItems'>) {
       </SheetTrigger>
       <SheetContent
         side={'left'}
-        className="z-444 !max-w-[300px] border-none bg-white p-0 dark:bg-black"
+        className="z-[9999] !max-w-[300px] border-none bg-white p-0 dark:bg-black"
+        onClick={(e) => e.stopPropagation()}
       >
         <ScrollArea
           viewportClassName={cn('h-[100vh]')}

@@ -10,7 +10,7 @@ import { HomeProjectSection } from '@/src/sections/project/v1/home-page';
 // import { PricingSection } from '@/src/sections/pricing/version-1';
 // import { ServiceSection } from '@/src/sections/service/v1';
 import { ServiceSection } from '@/src/sections/service/v2';
-import { StatisticsSection } from '@/src/sections/statistics/v1';
+// import { StatisticsSection } from '@/src/sections/statistics/v1';
 import { TeamSection } from '@/src/sections/team/v2';
 // import { TestimonialSection } from '@/src/sections/testimonial/v1';
 import { Metadata } from 'next';
@@ -29,7 +29,7 @@ export default function Page() {
       <AboutSection />
       {/* <CtaSection /> */}
       <HomeProjectSection {...projectSectionData} limitProjects={4} isWave={true} />
-      <StatisticsSection />
+      {/* <StatisticsSection /> */}
       {/* <TestimonialSection /> */}
       {/* <PricingSection /> */}
       <TeamSection />
