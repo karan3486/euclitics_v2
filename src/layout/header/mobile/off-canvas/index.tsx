@@ -54,9 +54,9 @@ interface IOffCanvas {
 
 const offCanvasProps: IOffCanvas = {
   contactInfo: {
-    location: ' 88 broklyn street, New York',
-    phoneNumber: '+1 555-9990-153',
-    mail: 'info@example.com',
+    location: 'Fremont, CA, 94538, USA',
+    phoneNumber: '+1 747-295-9996',
+    mail: 'info@euclitics.com',
   },
   socialLinks: [
     {
@@ -65,7 +65,7 @@ const offCanvasProps: IOffCanvas = {
     },
     {
       icon: <FaLinkedinIn />,
-      href: 'https://www.linkedin.com/',
+      href: 'https://www.linkedin.com/company/euclitics/',
     },
     {
       icon: <FaTwitter />,
