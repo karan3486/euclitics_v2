@@ -54,6 +54,11 @@ export const footerSectionData: FooterSectionProps = {
         href: '/services/api-development',
         openNewTab: false,
       },
+      {
+        label: 'Custom Software Development',
+        href: '/services/custom-software-development',
+        openNewTab: false,
+      },
     ],
   },
   columnTwo: {

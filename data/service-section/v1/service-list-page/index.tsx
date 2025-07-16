@@ -101,6 +101,17 @@ function Icon9() {
   );
 }
 
+function Icon10() {
+  return (
+    <Image
+      src="/assets/images/service/service-icons/service-10.png"
+      alt="Service Icon"
+      width={65}
+      height={65}
+    />
+  );
+}
+
 export const serviceSectionData: ServiceSectionProps = {
   sectionHeading: {
     subtitle: 'Our Services',
@@ -206,6 +217,17 @@ export const serviceSectionData: ServiceSectionProps = {
       description:
         'We provide API development services to help you create custom solutions for your business.',
       slug: '/services/api-development',
+    },
+    {
+      image: {
+        src: '/assets/images/service/service-10.png',
+        alt: 'Custom Software Development',
+      },
+      icon: <Icon10 />,
+      title: 'Custom Software Development',
+      description:
+        'We provide custom software development services to help you create custom solutions for your business.',
+      slug: '/services/custom-software-development',
     },
   ],
 };

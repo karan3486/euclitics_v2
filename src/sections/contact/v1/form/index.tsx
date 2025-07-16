@@ -5,7 +5,8 @@ import { TextInput } from '@/src/components/inputs/text-input';
 import { TextAreaInput } from '@/src/components/inputs/textarea-input';
 import { cn } from '@/src/utils/shadcn';
 import { Formik } from 'formik';
-import { FaUser, FaSpeakap } from 'react-icons/fa6';
+import { FaUser, FaSpeakap, FaPhone } from 'react-icons/fa6';
+import { useState } from 'react';
 
 import * as Yup from 'yup';
 import { contactUsFormSubmit } from './server/contact-us-form-submit';
@@ -16,6 +17,7 @@ const validationMessages = {
   tooLong: 'Must be at most ${max} characters',
   required: 'This field is required',
   email: 'Invalid email format',
+  phoneFormat: 'Invalid phone number format',
 };
 
 const ContactUsSchema = Yup.object().shape({
@@ -34,6 +36,10 @@ const ContactUsSchema = Yup.object().shape({
     .min(2, validationMessages.tooShort)
     .max(300, validationMessages.tooLong)
     .required(validationMessages.required),
+  phone: Yup.string().matches(
+    /^[+\-()\s\d./]{1,15}$/,
+    validationMessages.phoneFormat
+  ),
 });
 
 export type ContactUsSchemaType = Yup.InferType<typeof ContactUsSchema>;
@@ -50,16 +56,58 @@ export function Form() {
         email: '',
         subject: '',
         message: '',
+        phone: '',
       }}
       validationSchema={ContactUsSchema}
-      onSubmit={async (values, { resetForm }) => {
-        const result = await contactUsFormSubmit(values);
-
-        if (result.data === null) {
-          toast.error(result.message);
-        } else {
-          toast.success(result.message);
-          resetForm();
+      onSubmit={async (values, { resetForm, setSubmitting }) => {
+        try {
+          // Create FormData object for multipart/form-data
+          const formData = new FormData();
+          formData.append('name', values.name);
+          formData.append('userEmail', values.email);
+          formData.append('subject', values.subject);
+          
+          // Add phone if provided (optional)
+          if (values.phone) {
+            formData.append('mobile', values.phone);
+          }
+          
+          // Create HTML content from message with preserved line breaks
+          const formattedMessage = values.message.replace(/\n/g, '<br>');
+          const htmlContent = `
+            <h3>Message from ${values.name}</h3>
+            <div style="white-space: pre-line;">${formattedMessage}</div>
+          `;
+          formData.append('htmlEmailContent', htmlContent);
+          
+          // Send the request to the API
+          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
+          const apiKey = process.env.NEXT_PUBLIC_EMAIL_API_KEY || 'euclitics-1uBqXJ9sDg5a7Pq2LkzTnY3VrEw6ZmQa';
+          
+          const response = await fetch(`${apiBaseUrl}/api/v1/email/send`, {
+            method: 'POST',
+            headers: {
+              'accept': 'application/json',
+              'X-API-Key': apiKey,
+              // Note: Don't set Content-Type header when using FormData
+              // It will be set automatically with the correct boundary
+            },
+            body: formData,
+          });
+          
+          const result = await response.json();
+          
+          if (response.ok) {
+            toast.success('Message sent successfully!');
+            resetForm();
+          } else {
+            toast.error(result.message || 'Failed to send message');
+          }
+        } catch (error) {
+          console.error('Error sending message:', error);
+          toast.error('An error occurred while sending your message');
+        } finally {
+          setSubmitting(false);
         }
       }}
     >
@@ -151,6 +199,32 @@ export function Form() {
                 className={errorMessageClasses}
               >
                 {errors.subject}
+              </p>
+            )}
+          </div>
+          <div className="lg:col-span-2">
+            <TextInput
+              placeholder="Phone Number (optional)"
+              type="tel"
+              name="phone"
+              value={values.phone}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              disabled={isSubmitting}
+              icon={<FaPhone />}
+              className={cn(
+                fieldCommonClasses,
+                errors.phone && touched.phone && errorClasses
+              )}
+            />
+            {errors.phone && touched.phone && (
+              <p
+                title={errors.phone}
+                aria-live="polite"
+                role="error message"
+                className={errorMessageClasses}
+              >
+                {errors.phone}
               </p>
             )}
           </div>

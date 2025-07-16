@@ -38,6 +38,10 @@ export const serviceDetailSidebar: ServiceDetailSidebarProps = {
       label: 'API Development',
       href: '/services/api-development',
     },
+    {
+      label: 'Custom Software Development',
+      href: '/services/custom-software-development',
+    },
   ],
   phoneNumber: '+1 (747) 295-9996',
 };

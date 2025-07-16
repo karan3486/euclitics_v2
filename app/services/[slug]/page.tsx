@@ -14,6 +14,7 @@ import { serviceDetail as salesforceCrmSolutions } from '@/data/services-detail/
 import { serviceDetail as mobileAppDevelopment } from '@/data/services-detail/mobile-app-development';
 import { serviceDetail as searchEngineOptimization } from '@/data/services-detail/search-engine-optimization';
 import { serviceDetail as apiDevelopment } from '@/data/services-detail/api-development';
+import { serviceDetail as customSoftwareDevelopment } from '@/data/services-detail/custom-software-development';
 
 // Create a map of all services for easy lookup
 const serviceDetailsMap: Record<string, typeof aiStrategyConsulting> = {
@@ -26,6 +27,7 @@ const serviceDetailsMap: Record<string, typeof aiStrategyConsulting> = {
   'mobile-app-development': mobileAppDevelopment,
   'search-engine-optimization': searchEngineOptimization,
   'api-development': apiDevelopment,
+  'custom-software-development': customSoftwareDevelopment,
 };
 
 // Generate metadata based on the slug
