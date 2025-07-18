@@ -15,7 +15,7 @@ import { serviceDetail as mobileAppDevelopment } from '@/data/services-detail/mo
 import { serviceDetail as searchEngineOptimization } from '@/data/services-detail/search-engine-optimization';
 import { serviceDetail as apiDevelopment } from '@/data/services-detail/api-development';
 import { serviceDetail as customSoftwareDevelopment } from '@/data/services-detail/custom-software-development';
-
+import { serviceDetail as designingBranding } from '@/data/services-detail/designing-branding';
 // Create a map of all services for easy lookup
 const serviceDetailsMap: Record<string, typeof aiStrategyConsulting> = {
   'ai-strategy-consulting': aiStrategyConsulting,
@@ -28,6 +28,7 @@ const serviceDetailsMap: Record<string, typeof aiStrategyConsulting> = {
   'search-engine-optimization': searchEngineOptimization,
   'api-development': apiDevelopment,
   'custom-software-development': customSoftwareDevelopment,
+  'designing-branding': designingBranding,
 };
 
 // Generate metadata based on the slug

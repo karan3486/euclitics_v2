@@ -110,6 +110,17 @@ function Icon10() {
       height={65}
     />
   );
+} 
+
+function Icon11() {
+  return (
+    <Image
+      src="/assets/images/service/service-icons/service-11.png"
+      alt="Service Icon"
+      width={65}
+      height={65}
+    />
+  );
 }
 
 export const serviceSectionData: ServiceSectionProps = {
@@ -228,6 +239,17 @@ export const serviceSectionData: ServiceSectionProps = {
       description:
         'We provide custom software development services to help you create custom solutions for your business.',
       slug: '/services/custom-software-development',
+    },
+    {
+      image: {
+        src: '/assets/images/service/service-11.png',
+        alt: 'Designing & Branding',
+      },
+      icon: <Icon11 />,
+      title: 'Designing & Branding',
+      description:
+        'We provide designing and branding services to help you create custom solutions for your business.',
+      slug: '/services/designing-branding',
     },
   ],
 };

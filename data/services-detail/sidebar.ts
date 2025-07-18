@@ -42,6 +42,10 @@ export const serviceDetailSidebar: ServiceDetailSidebarProps = {
       label: 'Custom Software Development',
       href: '/services/custom-software-development',
     },
+    {
+      label: 'Designing & Branding',
+      href: '/services/designing-branding',
+    },
   ],
   phoneNumber: '+1 (747) 295-9996',
 };

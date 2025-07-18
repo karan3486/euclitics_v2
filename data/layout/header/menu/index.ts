@@ -67,6 +67,10 @@ export const menuItemsProps: HeaderProps['menuItems'] = [
         label: 'Custom Software Development',
         href: '/services/custom-software-development',
       },
+      {
+        label: 'Designing & Branding',
+        href: '/services/designing-branding',
+      },
     ],
   },
   {
